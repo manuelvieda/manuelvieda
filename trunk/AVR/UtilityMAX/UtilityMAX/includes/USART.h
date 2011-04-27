@@ -43,13 +43,13 @@
  * INT_TX_COMPLETA=1  A interruption is generated, if globally enabled, when the transmission is completed
  * ITN_TX_COMPLETA=0  No interruptions
  */
-#define INT_TX_COMPLETA 1
+#define INT_TX_COMPLETA 0
 
 /**
  * INT_RX_COMPLETA=1  A interruption is generated, if globally enabled, when a reception of a byte is completed
  * INT_RX_COMPLETA=0  No interruptions
  */
-#define INT_RX_COMPLETA 1
+#define INT_RX_COMPLETA 0
 
 /**
  * SPEED_2X=1  Se habilita el doble de velocidad de transmision si se esta trabajanod en modo
