@@ -1,0 +1,513 @@
+04-05 16:04:13 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: IO Exception: "IOException reading Dates.csv"
+IO Exception: "IOException reading Dates.csv"; SQL statement:
+SELECT * FROM CSVREAD('Dates.csv') [90028-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:156)
+	at org.h2.tools.Csv.convertException(Csv.java:593)
+	at org.h2.tools.Csv.read(Csv.java:195)
+	at org.h2.expression.Function.getValueForColumnList(Function.java:1934)
+	at org.h2.table.FunctionTable.<init>(FunctionTable.java:63)
+	at org.h2.command.Parser.readTableFilter(Parser.java:1015)
+	at org.h2.command.Parser.parseSelectSimpleFromPart(Parser.java:1622)
+	at org.h2.command.Parser.parseSelectSimple(Parser.java:1729)
+	at org.h2.command.Parser.parseSelectSub(Parser.java:1616)
+	at org.h2.command.Parser.parseSelectUnion(Parser.java:1461)
+	at org.h2.command.Parser.parseSelect(Parser.java:1449)
+	at org.h2.command.Parser.parsePrepared(Parser.java:401)
+	at org.h2.command.Parser.parse(Parser.java:275)
+	at org.h2.command.Parser.parse(Parser.java:247)
+	at org.h2.command.Parser.prepare(Parser.java:201)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.io.FileNotFoundException: Dates.csv (El sistema no puede encontrar el archivo especificado)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at org.h2.store.fs.FileSystemDisk.openFileInputStream(FileSystemDisk.java:404)
+	at org.h2.util.IOUtils.openFileInputStream(IOUtils.java:718)
+	at org.h2.tools.Csv.initRead(Csv.java:317)
+	at org.h2.tools.Csv.readResultSet(Csv.java:217)
+	at org.h2.tools.Csv.read(Csv.java:193)
+	... 25 more
+04-05 16:05:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO DIM_DATE  SELECT * FROM CSVREAD('Dates.csv') [21002-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.message.DbException.get(DbException.java:133)
+	at org.h2.command.dml.Insert.prepare(Insert.java:245)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:10:02 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO DIM_DATE  SELECT * FROM CSVREAD('Dates.csv','charset=UTF-8 fieldSeparator=;') [21002-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.message.DbException.get(DbException.java:133)
+	at org.h2.command.dml.Insert.prepare(Insert.java:245)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:27:17 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "SELECT * FROM CSVREAD('Dates.csv','charset=UTF-8 fieldSeparator=\ '))"
+Syntax error in SQL statement "SELECT * FROM CSVREAD('Dates.csv','charset=UTF-8 fieldSeparator=\ '))"; SQL statement:
+SELECT * FROM CSVREAD('Dates.csv','charset=UTF-8 fieldSeparator=\ ')) [42000-151]
+04-05 16:27:22 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "SELECT * FROM CSVREAD('Dates.csv','charset=UTF-8 fieldSeparator=, '))"
+Syntax error in SQL statement "SELECT * FROM CSVREAD('Dates.csv','charset=UTF-8 fieldSeparator=, '))"; SQL statement:
+SELECT * FROM CSVREAD('Dates.csv','charset=UTF-8 fieldSeparator=, ')) [42000-151]
+04-05 16:35:54 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: String con error de formato: "fieldSeparator=\[*];"
+String format error: "fieldSeparator=\[*];"; SQL statement:
+SELECT * FROM CSVREAD('dates_comma.csv',STRINGDECODE('fieldSeparator=\;')) [90095-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.util.StringUtils.getFormatException(StringUtils.java:214)
+	at org.h2.util.StringUtils.javaDecode(StringUtils.java:290)
+	at org.h2.expression.Function.getSimpleValue(Function.java:585)
+	at org.h2.expression.Function.getValueWithArgs(Function.java:852)
+	at org.h2.expression.Function.getValue(Function.java:416)
+	at org.h2.expression.Function.optimize(Function.java:1759)
+	at org.h2.expression.Function.optimize(Function.java:1641)
+	at org.h2.table.FunctionTable.<init>(FunctionTable.java:51)
+	at org.h2.command.Parser.readTableFilter(Parser.java:1015)
+	at org.h2.command.Parser.parseSelectSimpleFromPart(Parser.java:1622)
+	at org.h2.command.Parser.parseSelectSimple(Parser.java:1729)
+	at org.h2.command.Parser.parseSelectSub(Parser.java:1616)
+	at org.h2.command.Parser.parseSelectUnion(Parser.java:1461)
+	at org.h2.command.Parser.parseSelect(Parser.java:1449)
+	at org.h2.command.Parser.parsePrepared(Parser.java:401)
+	at org.h2.command.Parser.parse(Parser.java:275)
+	at org.h2.command.Parser.parse(Parser.java:247)
+	at org.h2.command.Parser.prepare(Parser.java:201)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:44:20 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Columna "INTO" no encontrada
+Column "INTO" not found; SQL statement:
+SELECT INTO DIM_DATE SELECT * FROM CSVREAD('dates_csv.csv') [42122-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:134)
+	at org.h2.expression.Alias.optimize(Alias.java:47)
+	at org.h2.command.dml.Select.prepare(Select.java:780)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:44:32 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO DIM_DATE SELECT * FROM CSVREAD('dates_csv.csv') [21002-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.message.DbException.get(DbException.java:133)
+	at org.h2.command.dml.Insert.prepare(Insert.java:245)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:46:56 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Imposible interpretar la constante de fecha y hora timestamp "01/01/2011", causa: "format yyyy-mm-dd"
+Cannot parse timestamp constant "01/01/2011", cause: "format yyyy-mm-dd"; SQL statement:
+INSERT INTO DIM_DATE SELECT * FROM CSVREAD('dates_csv.csv') -- row #2 ('20110101', '01/01/2011', '2011/01/01', '7', STRINGDECODE('s\u00e1bado'), '1', '1', 'No Laboral', '1', 'enero', '1', 'N', '1', '2011', '2011-01', '2011T1', '7', '3', '2011', 'AF2011-07', 'AF2011T3') [90011-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.util.DateTimeUtils.parseDateTime(DateTimeUtils.java:257)
+	at org.h2.value.ValueTimestamp.parseTimestamp(ValueTimestamp.java:82)
+	at org.h2.value.Value.convertTo(Value.java:804)
+	at org.h2.table.Column.convert(Column.java:151)
+	at org.h2.command.dml.Insert.addRow(Insert.java:155)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:139)
+	at org.h2.command.dml.Insert.update(Insert.java:86)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:211)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:177)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:53:03 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Imposible interpretar la constante de fecha y hora timestamp "01/01/2011", causa: "format yyyy-mm-dd"
+Cannot parse timestamp constant "01/01/2011", cause: "format yyyy-mm-dd"; SQL statement:
+INSERT INTO DIM_DATE SELECT * FROM CSVREAD('dates_csv.csv') -- row #2 ('20110101', '01/01/2011', '2011/01/01', '7', STRINGDECODE('s\u00e1bado'), '1', '1', 'No Laboral', '1', 'enero', '1', 'N', '1', '2011', '2011-01', '2011T1', '7', '3', '2011', 'AF2011-07', 'AF2011T3') [90011-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.util.DateTimeUtils.parseDateTime(DateTimeUtils.java:257)
+	at org.h2.value.ValueTimestamp.parseTimestamp(ValueTimestamp.java:82)
+	at org.h2.value.Value.convertTo(Value.java:804)
+	at org.h2.table.Column.convert(Column.java:151)
+	at org.h2.command.dml.Insert.addRow(Insert.java:155)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:139)
+	at org.h2.command.dml.Insert.update(Insert.java:86)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:211)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:177)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:55:58 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Imposible interpretar la constante de fecha y hora timestamp "01/01/2011", causa: "format yyyy-mm-dd"
+Cannot parse timestamp constant "01/01/2011", cause: "format yyyy-mm-dd"; SQL statement:
+INSERT INTO DIM_DATE  SELECT * FROM CSVREAD('dates_comma.csv', NULL, NULL, ';') -- row #2 ('20110101', '01/01/2011', '2011/01/01', '7', STRINGDECODE('s\u00e1bado'), '1', '1', 'No Laboral', '1', 'enero', '1', 'N', '1', '2011', '2011-01', '2011T1', '7', '3', '2011', 'AF2011-07', 'AF2011T3') [90011-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.util.DateTimeUtils.parseDateTime(DateTimeUtils.java:257)
+	at org.h2.value.ValueTimestamp.parseTimestamp(ValueTimestamp.java:82)
+	at org.h2.value.Value.convertTo(Value.java:804)
+	at org.h2.table.Column.convert(Column.java:151)
+	at org.h2.command.dml.Insert.addRow(Insert.java:155)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:139)
+	at org.h2.command.dml.Insert.update(Insert.java:86)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:211)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:177)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 16:59:45 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "SELECT FROM CSVREAD('dates_comma.csv', NULL, NULL, ';')"; se esperaba "SELECT"
+Syntax error in SQL statement "SELECT FROM CSVREAD('dates_comma.csv', NULL, NULL, ';')"; expected "SELECT"; SQL statement:
+SELECT FROM CSVREAD('dates_comma.csv', NULL, NULL, ';') [42001-151]
+04-05 17:09:04 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Imposible interpretar la constante de fecha y hora timestamp "01/01/2011", causa: "format yyyy-mm-dd"
+Cannot parse timestamp constant "01/01/2011", cause: "format yyyy-mm-dd"; SQL statement:
+SELECT DATE_KEY,FORMATDATETIME(FULL_DATE,'dd/MM/yyyy') AS DATESI FROM CSVREAD('dates_file.csv', NULL, NULL, ';') [90011-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.util.DateTimeUtils.parseDateTime(DateTimeUtils.java:257)
+	at org.h2.value.ValueTimestamp.parseTimestamp(ValueTimestamp.java:82)
+	at org.h2.value.Value.convertTo(Value.java:804)
+	at org.h2.value.Value.getTimestamp(Value.java:384)
+	at org.h2.expression.Function.getValueWithArgs(Function.java:1016)
+	at org.h2.expression.Function.getValue(Function.java:416)
+	at org.h2.expression.Alias.getValue(Alias.java:35)
+	at org.h2.command.dml.Select.queryFlat(Select.java:511)
+	at org.h2.command.dml.Select.queryWithoutCache(Select.java:604)
+	at org.h2.command.dml.Query.query(Query.java:256)
+	at org.h2.command.dml.Query.query(Query.java:226)
+	at org.h2.command.dml.Query.query(Query.java:37)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:78)
+	at org.h2.command.Command.executeQuery(Command.java:180)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:173)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 17:13:14 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Columna "INTO" no encontrada
+Column "INTO" not found; SQL statement:
+SELECT INTO DIM_DATE SELECT DATE_KEY,PARSEDATETIME(FULL_DATE,'dd/MM/yyyy') AS FULL_DATE, DATE_NAME,DAY_OF_WEEK, day_name_of_week,day_of_month,day_of_year,weekday_weekend,week_of_year,month_name,month_of_year,is_last_day_of_month,calendar_quarter,calendar_year,calendar_year_month,calendar_year_qtr,fiscal_month_of_year,fiscal_quarter,fiscal_year,fiscal_year_month,fiscal_year_qtr FROM CSVREAD('dates_file.csv', NULL, NULL, ';') [42122-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:134)
+	at org.h2.expression.Alias.optimize(Alias.java:47)
+	at org.h2.command.dml.Select.prepare(Select.java:780)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 17:17:14 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "CREATE IF[*] NOT EXISTS DIM_CHANNEL (DIM_CHANNEL_KEY IDENTITY, CHANNEL_NAME VARCHAR(55) NOT NULL, CHANNEL_DESC VARCHAR(200) NOT NULL, CONSTRAINT PK_DIM_CHANNEL PRIMARY KEY DIM_CHANNEL_KEY) "; se esperaba "OR, FORCE, VIEW, ALIAS, SEQUENCE, USER, TRIGGER, ROLE, SCHEMA, CONSTANT, DOMAIN, TYPE, DATATYPE, AGGREGATE, LINKED, MEMORY, CACHED, LOCAL, GLOBAL, TEMP, TEMPORARY, TABLE, PRIMARY, UNIQUE, HASH, INDEX"
+Syntax error in SQL statement "CREATE IF[*] NOT EXISTS DIM_CHANNEL (DIM_CHANNEL_KEY IDENTITY, CHANNEL_NAME VARCHAR(55) NOT NULL, CHANNEL_DESC VARCHAR(200) NOT NULL, CONSTRAINT PK_DIM_CHANNEL PRIMARY KEY DIM_CHANNEL_KEY) "; expected "OR, FORCE, VIEW, ALIAS, SEQUENCE, USER, TRIGGER, ROLE, SCHEMA, CONSTANT, DOMAIN, TYPE, DATATYPE, AGGREGATE, LINKED, MEMORY, CACHED, LOCAL, GLOBAL, TEMP, TEMPORARY, TABLE, PRIMARY, UNIQUE, HASH, INDEX"; SQL statement:
+CREATE IF NOT EXISTS dim_channel (dim_channel_key IDENTITY, channel_name varchar(55) NOT NULL, channel_desc varchar(200) NOT NULL, CONSTRAINT pk_dim_channel PRIMARY KEY dim_channel_key) [42001-151]
+04-05 17:17:37 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "CREATE IF[*] NOT EXISTS DIM_CHANNEL (DIM_CHANNEL_KEY IDENTITY, CHANNEL_NAME VARCHAR(55) NOT NULL, CHANNEL_DESC VARCHAR(200) NOT NULL, CONSTRAINT PK_DIM_CHANNEL PRIMARY KEY (DIM_CHANNEL_KEY)) "; se esperaba "OR, FORCE, VIEW, ALIAS, SEQUENCE, USER, TRIGGER, ROLE, SCHEMA, CONSTANT, DOMAIN, TYPE, DATATYPE, AGGREGATE, LINKED, MEMORY, CACHED, LOCAL, GLOBAL, TEMP, TEMPORARY, TABLE, PRIMARY, UNIQUE, HASH, INDEX"
+Syntax error in SQL statement "CREATE IF[*] NOT EXISTS DIM_CHANNEL (DIM_CHANNEL_KEY IDENTITY, CHANNEL_NAME VARCHAR(55) NOT NULL, CHANNEL_DESC VARCHAR(200) NOT NULL, CONSTRAINT PK_DIM_CHANNEL PRIMARY KEY (DIM_CHANNEL_KEY)) "; expected "OR, FORCE, VIEW, ALIAS, SEQUENCE, USER, TRIGGER, ROLE, SCHEMA, CONSTANT, DOMAIN, TYPE, DATATYPE, AGGREGATE, LINKED, MEMORY, CACHED, LOCAL, GLOBAL, TEMP, TEMPORARY, TABLE, PRIMARY, UNIQUE, HASH, INDEX"; SQL statement:
+CREATE IF NOT EXISTS dim_channel (dim_channel_key IDENTITY, channel_name varchar(55) NOT NULL, channel_desc varchar(200) NOT NULL, CONSTRAINT pk_dim_channel PRIMARY KEY (dim_channel_key)) [42001-151]
+04-05 17:18:20 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "DIM_CHANNEL"; se esperaba "DELETE, DROP, DECLARE, DEALLOCATE, {"
+Syntax error in SQL statement "DIM_CHANNEL"; expected "DELETE, DROP, DECLARE, DEALLOCATE, {"; SQL statement:
+DIM_CHANNEL [42001-151]
+04-05 17:18:45 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:18:45 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:19:54 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'IDENTITY()' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'IDENTITY()' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:19:54 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'IDENTITY()' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'IDENTITY()' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:20:12 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'IDEN' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'IDEN' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:20:12 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'IDEN' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'IDEN' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:22:37 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:22:37 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:27:49 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'CHANNEL_SEQ.NEXTVAL' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'CHANNEL_SEQ.NEXTVAL' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:27:49 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Conversión de datos fallida, convirtiendo "'CHANNEL_SEQ.NEXTVAL' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"
+Data conversion error converting "'CHANNEL_SEQ.NEXTVAL' (DIM_CHANNEL_KEY BIGINT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_14155078_E631_47B4_904F_915934800C05)"; SQL statement:
+INSERT INTO "PUBLIC"."DIM_CHANNEL"("DIM_CHANNEL_KEY","CHANNEL_NAME","CHANNEL_DESC")VALUES(?,?,?) -- (?1, ?2, ?3) [90021-151]
+04-05 17:30:26 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "DIDIM_CHANNEL" no encontrada
+Table "DIDIM_CHANNEL" not found; SQL statement:
+INSERT INTO DIDIM_CHANNEL M_CHANNEL(CHANNEL_NAME ,CHANNEL_DESC ) VALUES ('Facebook','Red Social Facebook') [42102-151]
+04-05 17:30:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "INSERT INTO DIM_CHANNEL M_CHANNEL[*](CHANNEL_NAME ,CHANNEL_DESC ) VALUES ('Facebook','Red Social Facebook')"; se esperaba "., (, DIRECT, SORTED, DEFAULT, VALUES, (, SELECT, FROM"
+Syntax error in SQL statement "INSERT INTO DIM_CHANNEL M_CHANNEL[*](CHANNEL_NAME ,CHANNEL_DESC ) VALUES ('Facebook','Red Social Facebook')"; expected "., (, DIRECT, SORTED, DEFAULT, VALUES, (, SELECT, FROM"; SQL statement:
+INSERT INTO DIM_CHANNEL M_CHANNEL(CHANNEL_NAME ,CHANNEL_DESC ) VALUES ('Facebook','Red Social Facebook') [42001-151]
+04-05 17:30:44 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "INSERT INTO DIM_CHANNEL M_CHANNEL[*](CHANNEL_NAME ,CHANNEL_DESC) VALUES ('Facebook','Red Social Facebook')"; se esperaba "., (, DIRECT, SORTED, DEFAULT, VALUES, (, SELECT, FROM"
+Syntax error in SQL statement "INSERT INTO DIM_CHANNEL M_CHANNEL[*](CHANNEL_NAME ,CHANNEL_DESC) VALUES ('Facebook','Red Social Facebook')"; expected "., (, DIRECT, SORTED, DEFAULT, VALUES, (, SELECT, FROM"; SQL statement:
+INSERT INTO DIM_CHANNEL M_CHANNEL(CHANNEL_NAME ,CHANNEL_DESC) VALUES ('Facebook','Red Social Facebook') [42001-151]
+04-05 17:35:13 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tipo de dato desconocido : "CHANNEL_KEY"
+Unknown data type: "CHANNEL_KEY"; SQL statement:
+ALTER TABLE DIM_CHANNEL ALTER COLUMN DIM_CHANNEL_KEY CHANNEL_KEY IDENTITY [50004-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.Parser.parseColumn(Parser.java:3554)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3417)
+	at org.h2.command.Parser.parseAlterTableAlterColumnType(Parser.java:4743)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:4736)
+	at org.h2.command.Parser.parseAlter(Parser.java:4127)
+	at org.h2.command.Parser.parsePrepared(Parser.java:302)
+	at org.h2.command.Parser.parse(Parser.java:275)
+	at org.h2.command.Parser.parse(Parser.java:247)
+	at org.h2.command.Parser.prepare(Parser.java:201)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-05 17:39:50 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "CREATE TABLE DIM_MARKETING_ACTIVITY(MARKETING_ACTIVITY_KEY IDENTITY, ACTIVITY_TYPE VARCHAR(50), ACTIVITY_NAME VARCHAR(100), ACTIVITY_CONTENT VARCHAR(200), CONSTRAINT PK_DIM_MARKETING_ACTIVITY PRIMARY KEY (MARKETING_ACTIVITY_KEY)"; se esperaba ")"
+Syntax error in SQL statement "CREATE TABLE DIM_MARKETING_ACTIVITY(MARKETING_ACTIVITY_KEY IDENTITY, ACTIVITY_TYPE VARCHAR(50), ACTIVITY_NAME VARCHAR(100), ACTIVITY_CONTENT VARCHAR(200), CONSTRAINT PK_DIM_MARKETING_ACTIVITY PRIMARY KEY (MARKETING_ACTIVITY_KEY)"; expected ")"; SQL statement:
+CREATE TABLE DIM_MARKETING_ACTIVITY(MARKETING_ACTIVITY_KEY IDENTITY, ACTIVITY_TYPE VARCHAR(50), ACTIVITY_NAME VARCHAR(100), ACTIVITY_CONTENT VARCHAR(200), CONSTRAINT PK_DIM_MARKETING_ACTIVITY PRIMARY KEY (MARKETING_ACTIVITY_KEY) [42001-151]
+04-06 11:13:12 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:68)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:641)
+	at org.h2.server.web.WebApp.login(WebApp.java:892)
+	at org.h2.server.web.WebApp.process(WebApp.java:205)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:164)
+	at org.h2.server.web.WebThread.process(WebThread.java:137)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-06 11:17:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "DROP DIM_EVENT"; se esperaba "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"
+Syntax error in SQL statement "DROP DIM_EVENT"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"; SQL statement:
+DROP DIM_EVENT [42001-151]
+04-06 11:17:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Intento de definir una segunda clave primaria
+Attempt to define a second primary key; SQL statement:
+CREATE TABLE IF NOT EXISTS dim_channel (channel_key IDENTITY, channel_name varchar(55) NOT NULL, channel_desc varchar(200) NOT NULL, CONSTRAINT pk_dim_channel PRIMARY KEY (dim_channel_key)) [90017-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.message.DbException.get(DbException.java:133)
+	at org.h2.command.ddl.CreateTable.setPrimaryKeyColumns(CreateTable.java:230)
+	at org.h2.command.ddl.CreateTable.addConstraintCommand(CreateTable.java:82)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4975)
+	at org.h2.command.Parser.parseCreate(Parser.java:3708)
+	at org.h2.command.Parser.parsePrepared(Parser.java:320)
+	at org.h2.command.Parser.parse(Parser.java:275)
+	at org.h2.command.Parser.parse(Parser.java:247)
+	at org.h2.command.Parser.prepare(Parser.java:201)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-06 11:18:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Intento de definir una segunda clave primaria
+Attempt to define a second primary key; SQL statement:
+CREATE TABLE dim_event(event_key IDENTITY, event_type VARCHAR(50) NOT NULL, event_content VARCHAR(200) NOT NULL, activity_program VARCHAR(150) NOT NULL DEFAULT 'NA', CONSTRAINT pk_dim_event PRIMARY KEY (activity_key)) [90017-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.message.DbException.get(DbException.java:133)
+	at org.h2.command.ddl.CreateTable.setPrimaryKeyColumns(CreateTable.java:230)
+	at org.h2.command.ddl.CreateTable.addConstraintCommand(CreateTable.java:82)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4975)
+	at org.h2.command.Parser.parseCreate(Parser.java:3708)
+	at org.h2.command.Parser.parsePrepared(Parser.java:320)
+	at org.h2.command.Parser.parse(Parser.java:275)
+	at org.h2.command.Parser.parse(Parser.java:247)
+	at org.h2.command.Parser.prepare(Parser.java:201)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-06 11:36:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "DROP TABLE FAC FACT_EVENT_MONITORING"
+Syntax error in SQL statement "DROP TABLE FAC FACT_EVENT_MONITORING"; SQL statement:
+DROP TABLE FAC FACT_EVENT_MONITORING [42000-151]
+04-06 11:59:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO DIM_CHANNEL VALUES('Twitter', 'Servicio de Microblogging y Red Social') [21002-151]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.message.DbException.get(DbException.java:133)
+	at org.h2.command.dml.Insert.prepare(Insert.java:228)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:426)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1089)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1308)
+	at org.h2.server.web.WebApp.query(WebApp.java:994)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:957)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:960)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-06 15:23:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "DIM_USER_RESPONSE" ya existe
+Table "DIM_USER_RESPONSE" already exists; SQL statement:
+CREATE TABLE dim_user_response(user_response_key IDENTITY, response_type VARCHAR(50) NOT NULL,  response_content VARCHAR(200) NOT NULL DEFAULT 'NA') [42101-151]
