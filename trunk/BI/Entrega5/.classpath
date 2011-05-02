@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="lib/twitter4j-media-support-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-stream-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/opencsv-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/synesketch.jar"/>
+	<classpathentry kind="lib" path="lib/textcat-1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

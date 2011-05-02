@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +50,7 @@ public class CSVSourceActivity extends Activity {
 	 */
 	private List<Row> loadCSVFile() {
 		
-		log.info("Cargando archivo:"+filePath+" ...");
+		log.info("Cargando archivo CSV:"+filePath);
 		
 		// Creamos una lista con todos las filas del archivo
 		List<Row> rows = new ArrayList<Row>();
@@ -61,19 +62,22 @@ public class CSVSourceActivity extends Activity {
 			nextLine = reader.readNext();
 			
 			// Creamos el set con el nombre de los campos
-			Set<String> fieldNames = new HashSet<String>();
+			Set<String> fieldNames = new LinkedHashSet<String>();
 			if(nextLine!=null){
 				for(int i=0; i<nextLine.length; i++){
 					fieldNames.add(nextLine[i]);
+					System.out.print(nextLine[i]+" - ");
 				}				
 			}
 			
+			System.out.println("");
 			// Las siguientes lineas corresponden a los valores
-			Set<String> fieldValues = new HashSet<String>();
 			while ((nextLine = reader.readNext()) != null) {
+				Set<String> fieldValues = new LinkedHashSet<String>();
 				for(int i=0; i<nextLine.length; i++){
 						fieldValues.add(nextLine[i]);
 				}
+				System.out.println("  ");
 				Row row = new Row(fieldNames, fieldValues);
 				rows.add(row);
 			}
