@@ -24,12 +24,20 @@ public class ETL {
 	 */
 	private static Logger log;
 	
+	/**
+	 * Actividad Fuente CSV
+	 */
+	private CSVSourceActivity campanasLoad;
+	
+	
 	
 	// ----------------------------------------------------------------
 	// CONSTRUCTOR
 	// ----------------------------------------------------------------
 	public ETL(){
 		log = Logger.getLogger(this.getClass().getCanonicalName());
+		
+		campanasLoad = new CSVSourceActivity();
 	}
 	
 	
@@ -37,6 +45,26 @@ public class ETL {
 	// METODOS
 	// ----------------------------------------------------------------
 	
+	private void setupCSVSourceActivity() {
+		campanasLoad.setCSVFilePath("./data/campanas.csv");
+		
+	}
+	
+	
+	/**
+	 * Este metodo se encarga de crear el flujo de trabajo para el proceso de ETL
+	 */
+	private void setupWorkFlow(){
+		setupCSVSourceActivity();
+	}
+	
+	/**
+	 * Configura el flujo de trabajo y lo ejecuta
+	 */
+	public void executeWorkFlow() {
+		setupWorkFlow();
+		campanasLoad.execute();
+	}
 	
 	
 	// ----------------------------------------------------------------
@@ -46,8 +74,9 @@ public class ETL {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		ETL etl = new ETL();
+		etl.setupWorkFlow();
+		etl.executeWorkFlow();
 	}
 
 }

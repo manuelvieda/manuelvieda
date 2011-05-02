@@ -75,8 +75,7 @@ public abstract class Activity {
 	private void setupLog() {
 		try {
 			log = Logger.getLogger(this.getClass().getCanonicalName());
-			FileHandler fh = new FileHandler(LOG_FILE_PATH+this.getClass().getCanonicalName()+".log",
-					true);
+			FileHandler fh = new FileHandler(LOG_FILE_PATH+this.getClass().getCanonicalName()+".log",true);
 			fh.setFormatter(new SimpleFormatter());
 			log.addHandler(fh);
 		} catch (Exception ex) {

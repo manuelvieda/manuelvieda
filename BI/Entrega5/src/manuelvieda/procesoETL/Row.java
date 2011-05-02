@@ -46,8 +46,11 @@ public class Row  implements Cloneable{
 	public Row(Set<String> fieldNames, Set fieldValues) {
 		this();
 		Iterator it = fieldValues.iterator();
+		System.out.println("Tamanos: "+fieldNames.size()+" - "+fieldValues.size());
 		for (String fieldName : fieldNames) {
-			fields.put(fieldName, it.next());
+			Object fieldValue = it.next();
+			System.out.println(" "+fieldName+" - "+fieldValue.toString());
+			fields.put(fieldName, fieldValue);
 		}
 	}
 	
