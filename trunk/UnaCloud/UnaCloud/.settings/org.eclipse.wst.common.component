@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="UnaCloud">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+        <dependent-module archiveName="UnaCloudWeb.war" deploy-path="/" handle="module:/resource/UnaCloudWeb/UnaCloudWeb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="UnaCloudEJB.jar" deploy-path="/" handle="module:/resource/UnaCloudEJB/UnaCloudEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="UnaCloudClient.jar" deploy-path="/" handle="module:/resource/UnaCloudClient/UnaCloudClient">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="UnaCloudWebPortal.war" deploy-path="/" handle="module:/resource/UnaCloudWebPortal/UnaCloudWebPortal">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="UnaCloudUtils.jar" deploy-path="/" handle="module:/resource/UnaCloudUtils/UnaCloudUtils">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="UnaCloudEntities.jar" deploy-path="/" handle="module:/resource/UnaCloudEntities/UnaCloudEntities">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
