@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"	
+      xmlns:f="http://java.sun.com/jsf/core">
+      
+<ui:composition template="/template/template-main.xhtml">
+
+	<ui:define name="pageTitle">Manage Clusters</ui:define>
+	
+	<ui:define name="menuHeaderContent">
+		<ul id="menuSup">
+			<li id="menuSup">#{loginBean.userGrettings}</li>
+			<li class="last"><h:form><h:commandLink value="Logout" action="#{loginBean.doLogout}" /></h:form></li>
+		</ul>
+	</ui:define>
+	
+	<ui:define name="body">
+		<div id="pageTitle">Workspace Administration</div>
+		<div id="divBodyWorkspaceAdministrator">
+			
+			<h:form id="adminWorkspaceForm">
+			
+				<a4j:region>
+				<h2>Your clusters... </h2>
+				<rich:dataTable value="#{adminClusterBean.userClustersLst}" var="clusterInfo" rows="10"  rowKeyVar="row" id="clusterSumaryTable">
+					<f:facet name="header"><h:outputText value="A brief sumary of your clusters" /></f:facet>
+					<rich:column ><f:facet name="header"><h:outputText value="Name" /></f:facet>
+						<h:outputText value="#{clusterInfo.name}" id="clusterName" />
+					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="State" /></f:facet>
+						<h:outputText value="#{clusterInfo.state}" id="clusterState" />
+					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="Total of Instances" /></f:facet>
+						<h:outputText value="#{clusterInfo.totalInstances}" id="clusterQuiantity" />
+					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="View details" /></f:facet>
+						<h:outputText value="VER" id="clusterViewLink" />
+					</rich:column>
+					
+				</rich:dataTable>
+				<h2>Cluster Detail...</h2>
+				
+				<h:panelGrid columns="4">
+					<h:outputText value="Name:" />
+					<h:inputText id="clusterDetailName" value="#{adminClusterBean.selectedCluster.name}" disabled="true" size="20" />
+					<h:outputText value="State:" />
+					<h:inputText id="clusterDetailState" value="#{adminClusterBean.selectedCluster.state}" disabled="true" size="20" />
+					<h:outputText value="Description:" />
+					<h:inputText id="clusterDetailDescription" value="#{adminClusterBean.selectedCluster.description}" disabled="true" size="20" />
+					<h:outputText value="Total Instances:" />
+					<h:inputText id="clusterDetailTotaInstances" value="#{adminClusterBean.selectedCluster.totalInstances}" disabled="true" size="20" />				
+				</h:panelGrid>
+				<br />
+				<rich:dataTable value="#{adminClusterBean.userClustersInstancesLst}" var="userInstance" rows="10"  rowKeyVar="row" id="clusterInstanceSumaryTable">
+					<f:facet name="header"><h:outputText value="Instances of the Cluster" /></f:facet>
+					<rich:column ><f:facet name="header"><h:outputText value="ID" /></f:facet>
+						<h:outputText value="#{userInstance.id}" id="instanceId" />
+					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="Provider" /></f:facet>
+						<h:outputText value="#{userInstance.provider}" id="instanceProvider" />
+					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="Type" /></f:facet>
+						<h:outputText value="#{userInstance.instanceType}" id="instanceType" />
+					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="Price" /></f:facet>
+						<h:outputText value="#{userInstance.price}" id="instancePrice" />
+					</rich:column>
+				</rich:dataTable>
+				<br />
+				<h:panelGrid>
+				<a4j:commandButton action="#{adminClusterBean.turnOn}" value="Turn On" render="adminWorkspaceForm"  />
+				</h:panelGrid>
+				</a4j:region>
+			</h:form>
+		</div>
+	
+	</ui:define>
+</ui:composition>
+</html>

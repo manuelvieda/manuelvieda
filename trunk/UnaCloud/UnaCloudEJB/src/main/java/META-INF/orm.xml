@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+
+	<!-- CLOUD PROVIDER -->
+	
+	<named-query name="cloudProvider.findAll">
+		<query>SELECT cp FROM CloudProvider cp</query>
+	</named-query>
+
+	<!-- CLUSTER -->
+	<named-query name="cluster.findByUser">
+		<query>SELECT c FROM Cluster c WHERE c.user.id = :username</query>
+	</named-query>
+	
+	<!-- INSTANCE TYPE -->
+
+	<named-query name="instanceType.findAllByProvider">
+		<query>SELECT it FROM InstanceType it WHERE it.cloudprovider.id = :idProvider</query>
+	</named-query>
+	
+	<!-- USER ISNTANCES -->
+	
+	<named-query name="userInstances.findByUser">
+		<query>SELECT ui FROM UserInstance ui WHERE ui.clusterBean.user.id = :username </query>
+	</named-query>
+	
+	
+	
+	
+	<!-- NAMED QUERY SYNTAXIS TEMPLATE
+	<named-query name="">
+		<query></query>
+	</named-query>
+	-->
+
+</entity-mappings>

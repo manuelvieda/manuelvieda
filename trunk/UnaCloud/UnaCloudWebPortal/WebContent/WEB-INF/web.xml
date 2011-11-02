@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+ <display-name>UnaCloudWebPortal</display-name>
+ <context-param>
+  <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+  <param-value>.xhtml</param-value>
+ </context-param>
+ <context-param>
+  <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+  <param-value>server</param-value>
+ </context-param>
+ <!-- Making the RichFaces skin spread to standard HTML controls -->
+ <context-param>
+  <param-name>org.richfaces.enableControlSkinning</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <!-- Plugging the "Blue Sky" skin into the project -->
+ <context-param>
+  <param-name>org.richfaces.skin</param-name>
+  <param-value>glassX</param-value>
+ </context-param>
+ <listener>
+  <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+ </listener>
+ <servlet>
+  <servlet-name>Faces Servlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.jsf</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.xhtml</url-pattern>
+ </servlet-mapping>
+ <welcome-file-list>
+  <welcome-file>index.html</welcome-file>
+  <welcome-file>index.htm</welcome-file>
+  <welcome-file>index.jsp</welcome-file>
+  <welcome-file>default.html</welcome-file>
+  <welcome-file>default.htm</welcome-file>
+  <welcome-file>default.jsp</welcome-file>
+ </welcome-file-list>
+ <security-constraint>
+  <display-name>Restriccion de Transporte a la Información de Acceso</display-name>
+  <web-resource-collection>
+   <web-resource-name>Workspace</web-resource-name>
+   <description>Workspace actions - Autenticated user only</description>
+   <url-pattern>/pages/workspace/*</url-pattern>
+   <http-method>GET</http-method>
+   <http-method>POST</http-method>
+   <http-method>HEAD</http-method>
+   <http-method>PUT</http-method>
+   <http-method>OPTIONS</http-method>
+   <http-method>TRACE</http-method>
+   <http-method>DELETE</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <role-name>Administrators</role-name>
+   <role-name>Users</role-name>
+  </auth-constraint>
+ </security-constraint>
+  <security-constraint>
+  <display-name>Restriccion de Transporte a la Información de Acceso</display-name>
+  <web-resource-collection>
+   <web-resource-name>User Account</web-resource-name>
+   <description>Administration are - User Account for autenticated users</description>
+   <url-pattern>/pages/user/account/*</url-pattern>
+   <http-method>GET</http-method>
+   <http-method>POST</http-method>
+   <http-method>HEAD</http-method>
+   <http-method>PUT</http-method>
+   <http-method>OPTIONS</http-method>
+   <http-method>TRACE</http-method>
+   <http-method>DELETE</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <role-name>Administrators</role-name>
+   <role-name>Users</role-name>
+  </auth-constraint>
+ </security-constraint>
+ <login-config>
+  <auth-method>FORM</auth-method>
+  <realm-name>UnaCloudLDAP</realm-name>
+  <form-login-config>
+   <form-login-page>/pages/security/login.xhtml</form-login-page>
+   <form-error-page>/pages/security/error.xhtml</form-error-page>
+  </form-login-config>
+ </login-config>
+ <security-role>
+  <role-name>Administrators</role-name>
+ </security-role>
+ <security-role>
+  <role-name>Users</role-name>
+ </security-role>
+ <error-page>
+        <error-code>500</error-code>
+        <location>/pages/security/servererror.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/pages/security/accessdenied.xhtml</location>
+    </error-page>
+</web-app>

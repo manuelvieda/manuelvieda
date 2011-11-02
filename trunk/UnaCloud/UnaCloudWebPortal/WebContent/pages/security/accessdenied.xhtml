@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/template/template-main.xhtml">
+	<ui:define name="pageTitle">User Login | ERROR</ui:define>
+
+	<ui:define name="body">
+		<center>
+			<form action="j_security_check" method="post">
+			<h:outputText value="ACCES DENIED!" style="color:red" />
+			<h:outputText value="Access to the requested resource has been denied" style="color:red" />
+				<h:panelGrid columns="2">
+					<h:outputText value="Username:" />
+					<h:inputText id="j_username" name="j_username" tabindex="1" />
+					<h:outputText value="Password:" />
+					<h:inputSecret id="j_password" name="j_password" tabindex="2" />
+				</h:panelGrid>
+				<input type="submit" value="Login" align="middle" tabindex="3" />
+			</form>
+		</center>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<!-- persistence-unit name="UnaCloudEntitiesTest" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>jdbc/UnaCloudDS</non-jta-data-source>
+		<class>com.manuelvieda.unacloud.entities.general.ApplicationParameter</class>
+		<class>com.manuelvieda.unacloud.entities.general.Application</class>
+		<class>com.manuelvieda.unacloud.entities.general.CloudProvider</class>
+		<class>com.manuelvieda.unacloud.entities.general.Cluster</class>
+		<class>com.manuelvieda.unacloud.entities.general.InstanceType</class>
+		<class>com.manuelvieda.unacloud.entities.general.Job</class>
+		<class>com.manuelvieda.unacloud.entities.general.Metric</class>
+		<class>com.manuelvieda.unacloud.entities.general.MonitoringLog</class>
+		<class>com.manuelvieda.unacloud.entities.general.State</class>
+		<class>com.manuelvieda.unacloud.entities.general.UserInstance</class>
+		<class>com.manuelvieda.unacloud.entities.general.User</class>
+		<class>com.manuelvieda.unacloud.entities.general.Role</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3309/unaCloud"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="adminComit"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit -->
+	<persistence-unit name="UnaCloudEntities" transaction-type="JTA">
+		<jta-data-source>jdbc/UnaCloudDS</jta-data-source>
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<class>com.manuelvieda.unacloud.entities.general.ApplicationParameter</class>
+		<class>com.manuelvieda.unacloud.entities.general.Application</class>
+		<class>com.manuelvieda.unacloud.entities.general.CloudProvider</class>
+		<class>com.manuelvieda.unacloud.entities.general.Cluster</class>
+		<class>com.manuelvieda.unacloud.entities.general.InstanceType</class>
+		<class>com.manuelvieda.unacloud.entities.general.Job</class>
+		<class>com.manuelvieda.unacloud.entities.general.Metric</class>
+		<class>com.manuelvieda.unacloud.entities.general.MonitoringLog</class>
+		<class>com.manuelvieda.unacloud.entities.general.State</class>
+		<class>com.manuelvieda.unacloud.entities.general.UserInstance</class>
+		<class>com.manuelvieda.unacloud.entities.general.User</class>
+		<class>com.manuelvieda.unacloud.entities.general.Role</class>
+		<properties />
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"	
+      xmlns:f="http://java.sun.com/jsf/core">
+      
+<ui:composition template="/template/template-main.xhtml">
+
+	<ui:define name="pageTitle">Manage Clusters | Create a new cluster</ui:define>
+	
+	<ui:define name="menuHeaderContent">
+		<ul id="menuSup">
+			<li id="menuSup">#{loginBean.userGrettings}</li>
+			<li class="last"><h:form><h:commandLink value="Logout" action="#{loginBean.doLogout}" /></h:form></li>
+		</ul>
+	</ui:define>
+	
+	<ui:define name="body">
+		<div id="pageTitle">
+			Creating a new cluster...
+		</div>
+		<div id="divBodyCreate">
+			<h:form id="createClusterFormBean">
+			
+				<h2>A general description... </h2>
+				<h:panelGrid columns="3">
+					<h:outputText value="Name:" />
+					<h:inputText value="#{createClusterBean.name}" id="name" size="50" tabindex="1">
+						<rich:validator summary="Invalid name" />
+					</h:inputText>
+					<rich:message for="name" />
+
+					<h:outputText value="Description:" />
+					<h:inputTextarea value="#{createClusterBean.description}" id="description" rows="3" cols="52" tabindex="2">
+						<rich:validator summary="Invalid description" />
+					</h:inputTextarea>
+					<rich:message for="description" />
+				</h:panelGrid>
+				
+				<h2>Add an instance...</h2>
+				
+				<h:panelGrid columns="2">
+					<h:outputText value="Provider:" />
+					<rich:select id="providerSelector" defaultLabel="Select one" value="#{createClusterBean.provider}">
+						<f:selectItems value="#{createClusterBean.providerLst}" />
+						<a4j:ajax event="change"  render="instanceTypeSelector"/>
+					</rich:select>
+					<h:outputText value="Instance Type:" />
+					<rich:select id="instanceTypeSelector" defaultLabel="Select one" value="#{createClusterBean.instanceType}" disabled="#{createClusterBean.hideInstancesTypes}">
+						<f:selectItems value="#{createClusterBean.instanceTypeLst}" />
+						<a4j:ajax event="change" render="quantitySelector"/>
+					</rich:select>
+					<h:outputText value="Quantity" />
+					<h:panelGrid columns="2">
+						<h:inputText id="quantitySelector" value="#{createClusterBean.quantity}" disabled="#{createClusterBean.hideInstancesQuantity}" size="8" />
+						<a4j:commandButton value="Add instance" action="#{createClusterBean.addInstance}" render="createClusterFormBean" />
+					</h:panelGrid>
+					
+					<f:facet name="footer">
+						<rich:message for="addInstance" />
+					</f:facet>
+				
+				</h:panelGrid>
+				
+				<h2>Actual configuration / Sumary</h2>
+				
+				<a4j:region>
+					<rich:dataTable value="#{createClusterBean.instances}"  var="clusterInstance" rows="20" rowKeyVar="row" id="clusterInstancesTable" >
+						
+						<f:facet name="header"><h:outputText value="Cluster Instances" /></f:facet>
+						
+						<rich:column ><f:facet name="header"><h:outputText value="Provider" /></f:facet>
+							<h:outputText value="#{clusterInstance.provider}" id="instanceProvider" />
+						</rich:column>
+						
+						<rich:column><f:facet name="header"><h:outputText value="Type" /></f:facet>
+							<h:outputText value="#{clusterInstance.instanceType}" id="instanceType" />
+						</rich:column>
+						
+						<rich:column><f:facet name="header"><h:outputText value="Quantity" /></f:facet>
+							<h:outputText value="#{clusterInstance.quantity}" id="instanceQuantity" />
+						</rich:column>
+						
+						<rich:column><f:facet name="header"><h:outputText value="Price/h" /></f:facet>
+							<h:outputText value="#{clusterInstance.price}" id="instancePrice" />
+						</rich:column>
+						
+						<rich:column><f:facet name="header"><h:outputText value="Actions" /></f:facet>
+						</rich:column>
+					</rich:dataTable>
+					
+				<br />
+				<h:panelGrid>
+					<a4j:commandButton value="Create Cluster" action="#{createClusterBean.create}" render="createClusterFormBean" />
+				</h:panelGrid>
+				</a4j:region>
+				
+			</h:form>
+		
+		</div>
+	   
+	</ui:define>
+</ui:composition>
+</html>
