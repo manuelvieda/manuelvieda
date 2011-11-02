@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/template/template-main.xhtml">
+	<ui:define name="pageTitle">Register new user</ui:define>
+	<ui:define name="body">
+
+		<h:form id="createUserFormBean">
+
+			<h:panelGrid columns="3">
+
+				<h:outputText value="Username:" />
+				<h:inputText value="#{createUserBean.username}" id="username"
+					size="32" tabindex="1">
+					<rich:validator summary="Invalid username" />
+				</h:inputText>
+				<rich:message for="username" />
+
+				<h:outputText value="Password:" />
+				<h:inputSecret value="#{createUserBean.password}" id="password"
+					size="32" tabindex="2">
+					<rich:validator summary="Invalid password" />
+				</h:inputSecret>
+				<rich:message for="password" />
+
+				<h:outputText value="Confirm Password:" />
+				<h:inputSecret value="#{createUserBean.confirmPassword}"
+					id="confirmPassword" size="32" tabindex="3">
+					<rich:validator summary="Invalid password" />
+				</h:inputSecret>
+				<rich:message for="confirmPassword" />
+
+
+				<h:outputText value="First Name:" />
+				<h:inputText value="#{createUserBean.firstName}" id="firstName"
+					size="32" tabindex="4">
+					<rich:validator summary="Invalid name" />
+				</h:inputText>
+				<rich:message for="firstName" />
+
+				<h:outputText value="Last Name:" />
+				<h:inputText value="#{createUserBean.lastName}" id="lastName"
+					size="32" tabindex="5">
+					<rich:validator summary="Invalid name" />
+				</h:inputText>
+				<rich:message for="lastName" />
+
+				<h:outputText value="Email Address:" />
+				<h:inputText value="#{createUserBean.email}" id="email" size="32"
+					tabindex="6">
+					<rich:validator summary="Invalid email address" />
+				</h:inputText>
+				<rich:message for="email" />
+
+				<h:outputText value="Confirm Email:" />
+				<h:inputText value="#{createUserBean.emailConfirmation}"
+					id="emailConfirmation" size="32" tabindex="7">
+					<rich:validator summary="Invalid email address" />
+				</h:inputText>
+				<rich:message for="emailConfirmation" />
+
+			</h:panelGrid>
+
+			<a4j:commandButton value="Submit" action="#{createUserBean.create}" render="createUserFormBean"/>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

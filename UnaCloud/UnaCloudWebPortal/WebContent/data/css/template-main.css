@@ -1,0 +1,155 @@
+@CHARSET "ISO-8859-1";
+
+/* General styles */
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	margin: 0px;
+	min-width: 1100px;
+}
+
+img{ border:none; }
+a{	color:#1d3547; text-decoration: none;}
+a:hover{  color:#5c7d95; text-decoration: none; }
+ul{	font-size: 1em; }
+ul li{ list-style:none; }
+td { font-size:11px;  }
+
+/* HEADER */
+
+/* Headstrong */
+#headstrong{
+	background: url(/UnaCloudWebPortal/data/imgs/theme/header-main-bg.jpg) repeat-x;
+	height: 150px;
+}
+
+/* Logo Image on left part of the headstrong*/
+#logoBackground{
+	height:150px;
+	overflow:hidden;
+}
+
+/*  */
+#logoContent {
+	float: left;
+	height: 150px;
+	width:21%;
+}
+
+/**/
+#menuContent{
+	float:right;
+	height:150px;
+	width:40%;
+	padding:0 25px 0 0;
+}
+
+#menuContentUpper {
+	background:url(/UnaCloudWebPortal/data/imgs/theme/header-menu-bg.jpg) no-repeat;
+	height:32px;
+	width: 468px;
+	float: right;
+	margin: 100px 0 0 0;
+}
+
+#menuContentUpper p{
+	padding: 0 0 0 20px;
+}
+
+#menuContentUpper ul{
+	font-size:.8em;
+	padding:14px 0 14px 14px;
+}
+#menuContentUpper ul li{
+	padding:0 0 7px 0;
+	list-style:none;
+}
+#menuContentUpper ul#menuSup{
+	padding: 0 0 0 15px;
+}
+#menuContentUpper ul#menuSup li{
+	float:left;
+	border-right:solid 1px #fff;
+	padding:0 10px;
+}	
+#menuContentUpper ul#menuSup li.last{
+	float:left;
+	border-right:none;
+	padding:0 10px;
+}	
+#menuContentUpper ul#menuSup li a{
+	color:#1d3547;
+	text-decoration: none;
+}
+#menuContentUpper ul#menuSup li a:hover{
+	color:#5c7d95;
+	text-decoration: none;
+}
+
+
+/* Menu Details*/
+
+/* BODY - GENERAL */
+#body-container{
+	margin: 25px auto;
+	width: 950px;
+	min-height: 400px;
+	text-align: center;
+	overflow = auto;
+}
+
+
+/* MENU*/
+#menuContainer{
+	text-align: left;
+	float: left;
+	width: 250px;
+	overflow: hidden;
+}
+
+#menuItem{
+	background:url(/UnaCloudWebPortal/data/imgs/theme/menu-item-bg.jpg) repeat-x;
+	height: 35px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+#menuItem p{
+	padding: 0 0 0 15px;
+	font-weight: bold;
+	float: left;
+}
+
+#menuItem img{
+	float: right;
+	padding-right: 10px;
+}
+
+#menuDetail{
+}
+
+#body{
+	text-align: left;
+	margin-left: 300px;
+}
+
+
+/* FOOTER */
+#footer{
+	border-top:solid 1px #000;
+	height:70px;
+	font-size:.8em;
+	text-decoration: none;
+}
+#footerLogoUniandes{
+	float: right;
+	padding: 5px 25px 0 0;
+}
+
+#footerLogoUniandes img{
+	padding:10px 0 0 49px;
+}
+#footerContent{
+	padding: 5px 25px 0 25px;
+	float: left;
+}
