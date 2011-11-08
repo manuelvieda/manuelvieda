@@ -33,8 +33,6 @@ public class Constants {
 	public static final String NQ_USER_INSTANCES_FIND_BY_USER = "userInstances.findByUser";
 	
 	
-	
-	
 	// STATUS
 	public static final int STATE_CLUSTER_ID_STANDBY = 11;
 	public static final int STATE_USER_INSTANCE_ID_STANDBY = 15;
