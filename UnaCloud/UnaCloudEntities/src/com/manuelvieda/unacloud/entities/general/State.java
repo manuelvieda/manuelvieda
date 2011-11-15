@@ -15,7 +15,7 @@ public class State implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="STATES_ID_GENERATOR" )
+	@SequenceGenerator(name="STATES_ID_GENERATOR", sequenceName="SEQ_STATES")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="STATES_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -27,23 +27,23 @@ public class State implements Serializable {
 	private String domain;
 
 	//bi-directional many-to-one association to Application
-	@OneToMany(mappedBy="stateBean")
+	@OneToMany(mappedBy="state")
 	private List<Application> applications;
 
 	//bi-directional many-to-one association to CloudProvider
-	@OneToMany(mappedBy="stateBean")
+	@OneToMany(mappedBy="state")
 	private List<CloudProvider> cloudproviders;
 
 	//bi-directional many-to-one association to Cluster
-	@OneToMany(mappedBy="stateBean")
+	@OneToMany(mappedBy="state")
 	private List<Cluster> clusters;
 
 	//bi-directional many-to-one association to UserInstance
-	@OneToMany(mappedBy="stateBean")
+	@OneToMany(mappedBy="state")
 	private List<UserInstance> userinstances;
 
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="stateBean")
+	@OneToMany(mappedBy="state")
 	private List<User> users;
 
     public State() {

@@ -46,15 +46,15 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Job> jobs;
 
-	//bi-directional many-to-one association to State
-    @ManyToOne
-	@JoinColumn(name="state", nullable=false)
-	private State stateBean;
-
 	//bi-directional many-to-one association to Role
     @ManyToOne
 	@JoinColumn(name="role", nullable=false)
 	private Role role;
+
+	//bi-directional many-to-one association to State
+    @ManyToOne
+	@JoinColumn(name="state", nullable=false)
+	private State state;
 
     public User() {
     }
@@ -131,20 +131,20 @@ public class User implements Serializable {
 		this.jobs = jobs;
 	}
 	
-	public State getStateBean() {
-		return this.stateBean;
-	}
-
-	public void setStateBean(State stateBean) {
-		this.stateBean = stateBean;
-	}
-	
 	public Role getRole() {
 		return this.role;
 	}
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public State getState() {
+		return this.state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 	
 }

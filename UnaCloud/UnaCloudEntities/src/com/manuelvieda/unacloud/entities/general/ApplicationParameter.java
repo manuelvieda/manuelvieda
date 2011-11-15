@@ -14,7 +14,7 @@ public class ApplicationParameter implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="APPLICATIONPARAMETERS_ID_GENERATOR" )
+	@SequenceGenerator(name="APPLICATIONPARAMETERS_ID_GENERATOR", sequenceName="SEQ_APPLICATIONPARAMETERS")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="APPLICATIONPARAMETERS_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -34,7 +34,7 @@ public class ApplicationParameter implements Serializable {
 	//bi-directional many-to-one association to Application
     @ManyToOne
 	@JoinColumn(name="application", nullable=false)
-	private Application applicationBean;
+	private Application application;
 
     public ApplicationParameter() {
     }
@@ -79,12 +79,12 @@ public class ApplicationParameter implements Serializable {
 		this.type = type;
 	}
 
-	public Application getApplicationBean() {
-		return this.applicationBean;
+	public Application getApplication() {
+		return this.application;
 	}
 
-	public void setApplicationBean(Application applicationBean) {
-		this.applicationBean = applicationBean;
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 	
 }

@@ -15,13 +15,17 @@ public class UserInstance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USERINSTANCES_ID_GENERATOR" )
+	@SequenceGenerator(name="USERINSTANCES_ID_GENERATOR", sequenceName="SEQ_USERINSTANCES")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERINSTANCES_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
 
 	@Column(length=150)
 	private String dnsName;
+
+	//bi-directional many-to-one association to InstanceParameter
+	@OneToMany(mappedBy="userinstance")
+	private List<InstanceParameter> instanceparameters;
 
 	//bi-directional many-to-one association to Job
 	@OneToMany(mappedBy="userinstance")
@@ -34,7 +38,7 @@ public class UserInstance implements Serializable {
 	//bi-directional many-to-one association to Cluster
     @ManyToOne
 	@JoinColumn(name="cluster", nullable=false)
-	private Cluster clusterBean;
+	private Cluster cluster;
 
 	//bi-directional many-to-one association to InstanceType
     @ManyToOne
@@ -44,7 +48,7 @@ public class UserInstance implements Serializable {
 	//bi-directional many-to-one association to State
     @ManyToOne
 	@JoinColumn(name="state", nullable=false)
-	private State stateBean;
+	private State state;
 
     public UserInstance() {
     }
@@ -65,6 +69,14 @@ public class UserInstance implements Serializable {
 		this.dnsName = dnsName;
 	}
 
+	public List<InstanceParameter> getInstanceparameters() {
+		return this.instanceparameters;
+	}
+
+	public void setInstanceparameters(List<InstanceParameter> instanceparameters) {
+		this.instanceparameters = instanceparameters;
+	}
+	
 	public List<Job> getJobs() {
 		return this.jobs;
 	}
@@ -81,12 +93,12 @@ public class UserInstance implements Serializable {
 		this.monitoringlogs = monitoringlogs;
 	}
 	
-	public Cluster getClusterBean() {
-		return this.clusterBean;
+	public Cluster getCluster() {
+		return this.cluster;
 	}
 
-	public void setClusterBean(Cluster clusterBean) {
-		this.clusterBean = clusterBean;
+	public void setCluster(Cluster cluster) {
+		this.cluster = cluster;
 	}
 	
 	public InstanceType getInstancetype() {
@@ -97,12 +109,12 @@ public class UserInstance implements Serializable {
 		this.instancetype = instancetype;
 	}
 	
-	public State getStateBean() {
-		return this.stateBean;
+	public State getState() {
+		return this.state;
 	}
 
-	public void setStateBean(State stateBean) {
-		this.stateBean = stateBean;
+	public void setState(State state) {
+		this.state = state;
 	}
 	
 }

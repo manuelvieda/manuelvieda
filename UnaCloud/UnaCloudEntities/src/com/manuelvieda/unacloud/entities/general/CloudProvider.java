@@ -15,7 +15,7 @@ public class CloudProvider implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CLOUDPROVIDERS_ID_GENERATOR" )
+	@SequenceGenerator(name="CLOUDPROVIDERS_ID_GENERATOR", sequenceName="SEQ_CLOUDPROVIDERS")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLOUDPROVIDERS_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -33,7 +33,7 @@ public class CloudProvider implements Serializable {
 	//bi-directional many-to-one association to State
     @ManyToOne
 	@JoinColumn(name="state", nullable=false)
-	private State stateBean;
+	private State state;
 
 	//bi-directional many-to-one association to InstanceType
 	@OneToMany(mappedBy="cloudprovider")
@@ -74,12 +74,12 @@ public class CloudProvider implements Serializable {
 		this.url = url;
 	}
 
-	public State getStateBean() {
-		return this.stateBean;
+	public State getState() {
+		return this.state;
 	}
 
-	public void setStateBean(State stateBean) {
-		this.stateBean = stateBean;
+	public void setState(State state) {
+		this.state = state;
 	}
 	
 	public List<InstanceType> getInstancetypes() {
