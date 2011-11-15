@@ -19,7 +19,6 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
 import com.manuelvieda.unacloud.entities.general.User;
-import com.manuelvieda.unacloud.utils.ldap.test.LdapConnector;
 import com.unboundid.ldap.sdk.Attribute;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
