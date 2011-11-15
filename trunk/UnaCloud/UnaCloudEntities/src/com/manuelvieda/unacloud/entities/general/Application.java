@@ -15,7 +15,7 @@ public class Application implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="APPLICATIONS_ID_GENERATOR" )
+	@SequenceGenerator(name="APPLICATIONS_ID_GENERATOR", sequenceName="SEQ_APPLICATIONS")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="APPLICATIONS_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -28,16 +28,16 @@ public class Application implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to ApplicationParameter
-	@OneToMany(mappedBy="applicationBean")
+	@OneToMany(mappedBy="application")
 	private List<ApplicationParameter> applicationparameters;
 
 	//bi-directional many-to-one association to State
     @ManyToOne
 	@JoinColumn(name="state", nullable=false)
-	private State stateBean;
+	private State state;
 
 	//bi-directional many-to-one association to Job
-	@OneToMany(mappedBy="applicationBean")
+	@OneToMany(mappedBy="application")
 	private List<Job> jobs;
 
     public Application() {
@@ -75,12 +75,12 @@ public class Application implements Serializable {
 		this.applicationparameters = applicationparameters;
 	}
 	
-	public State getStateBean() {
-		return this.stateBean;
+	public State getState() {
+		return this.state;
 	}
 
-	public void setStateBean(State stateBean) {
-		this.stateBean = stateBean;
+	public void setState(State state) {
+		this.state = state;
 	}
 	
 	public List<Job> getJobs() {

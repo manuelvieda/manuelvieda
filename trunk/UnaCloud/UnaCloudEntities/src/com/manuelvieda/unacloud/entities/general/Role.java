@@ -15,7 +15,7 @@ public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ROLES_ID_GENERATOR" )
+	@SequenceGenerator(name="ROLES_ID_GENERATOR", sequenceName="SEQ_ROLES")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ROLES_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;

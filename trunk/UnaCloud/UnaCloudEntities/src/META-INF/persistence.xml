@@ -21,20 +21,21 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit -->
-	<persistence-unit name="UnaCloudEntities" transaction-type="JTA">
-		<jta-data-source>jdbc/UnaCloudDS</jta-data-source>
+	<persistence-unit name="UnaCloudEntities" transaction-type="RESOURCE_LOCAL">
+	<non-jta-data-source>jdbc/UnaCloudDS</non-jta-data-source>
 		<class>com.manuelvieda.unacloud.entities.general.ApplicationParameter</class>
 		<class>com.manuelvieda.unacloud.entities.general.Application</class>
 		<class>com.manuelvieda.unacloud.entities.general.CloudProvider</class>
 		<class>com.manuelvieda.unacloud.entities.general.Cluster</class>
+		<class>com.manuelvieda.unacloud.entities.general.InstanceParameter</class>
 		<class>com.manuelvieda.unacloud.entities.general.InstanceType</class>
 		<class>com.manuelvieda.unacloud.entities.general.Job</class>
 		<class>com.manuelvieda.unacloud.entities.general.Metric</class>
 		<class>com.manuelvieda.unacloud.entities.general.MonitoringLog</class>
+		<class>com.manuelvieda.unacloud.entities.general.Role</class>
 		<class>com.manuelvieda.unacloud.entities.general.State</class>
 		<class>com.manuelvieda.unacloud.entities.general.UserInstance</class>
 		<class>com.manuelvieda.unacloud.entities.general.User</class>
-		<class>com.manuelvieda.unacloud.entities.general.Role</class>
 		<properties />
 	</persistence-unit>
 </persistence>

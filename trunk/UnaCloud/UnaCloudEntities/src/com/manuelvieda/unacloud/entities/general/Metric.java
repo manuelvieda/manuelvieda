@@ -15,7 +15,7 @@ public class Metric implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="METRICS_ID_GENERATOR" )
+	@SequenceGenerator(name="METRICS_ID_GENERATOR", sequenceName="SEQ_METRICS")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="METRICS_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;

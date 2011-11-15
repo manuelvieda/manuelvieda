@@ -16,7 +16,7 @@ public class Job implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="JOBS_ID_GENERATOR" )
+	@SequenceGenerator(name="JOBS_ID_GENERATOR", sequenceName="SEQ_JOBS")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="JOBS_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -40,12 +40,12 @@ public class Job implements Serializable {
 	//bi-directional many-to-one association to Application
     @ManyToOne
 	@JoinColumn(name="application", nullable=false)
-	private Application applicationBean;
+	private Application application;
 
 	//bi-directional many-to-one association to Cluster
     @ManyToOne
 	@JoinColumn(name="cluster", nullable=false)
-	private Cluster clusterBean;
+	private Cluster cluster;
 
 	//bi-directional many-to-one association to UserInstance
     @ManyToOne
@@ -116,20 +116,20 @@ public class Job implements Serializable {
 		this.state = state;
 	}
 
-	public Application getApplicationBean() {
-		return this.applicationBean;
+	public Application getApplication() {
+		return this.application;
 	}
 
-	public void setApplicationBean(Application applicationBean) {
-		this.applicationBean = applicationBean;
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 	
-	public Cluster getClusterBean() {
-		return this.clusterBean;
+	public Cluster getCluster() {
+		return this.cluster;
 	}
 
-	public void setClusterBean(Cluster clusterBean) {
-		this.clusterBean = clusterBean;
+	public void setCluster(Cluster cluster) {
+		this.cluster = cluster;
 	}
 	
 	public UserInstance getUserinstance() {

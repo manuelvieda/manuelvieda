@@ -15,8 +15,8 @@ public class Cluster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CLUSTERS_ID_GENERATOR", initialValue=10, sequenceName="CLUSTERS_ID_GENERATOR")
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="CLUSTERS_ID_GENERATOR")
+	@SequenceGenerator(name="CLUSTERS_ID_GENERATOR", sequenceName="SEQ_CLUSTERS")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLUSTERS_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
 
@@ -29,7 +29,7 @@ public class Cluster implements Serializable {
 	//bi-directional many-to-one association to State
     @ManyToOne
 	@JoinColumn(name="state", nullable=false)
-	private State stateBean;
+	private State state;
 
 	//bi-directional many-to-one association to User
     @ManyToOne
@@ -37,11 +37,11 @@ public class Cluster implements Serializable {
 	private User user;
 
 	//bi-directional many-to-one association to Job
-	@OneToMany(mappedBy="clusterBean")
+	@OneToMany(mappedBy="cluster")
 	private List<Job> jobs;
 
 	//bi-directional many-to-one association to UserInstance
-	@OneToMany(mappedBy="clusterBean")
+	@OneToMany(mappedBy="cluster")
 	private List<UserInstance> userinstances;
 
     public Cluster() {
@@ -71,12 +71,12 @@ public class Cluster implements Serializable {
 		this.name = name;
 	}
 
-	public State getStateBean() {
-		return this.stateBean;
+	public State getState() {
+		return this.state;
 	}
 
-	public void setStateBean(State stateBean) {
-		this.stateBean = stateBean;
+	public void setState(State state) {
+		this.state = state;
 	}
 	
 	public User getUser() {

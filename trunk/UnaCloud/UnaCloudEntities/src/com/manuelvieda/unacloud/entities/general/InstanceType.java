@@ -15,7 +15,7 @@ public class InstanceType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INSTANCETYPE_ID_GENERATOR" )
+	@SequenceGenerator(name="INSTANCETYPE_ID_GENERATOR", sequenceName="SEQ_INSTANCETYPE")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INSTANCETYPE_ID_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private int id;
