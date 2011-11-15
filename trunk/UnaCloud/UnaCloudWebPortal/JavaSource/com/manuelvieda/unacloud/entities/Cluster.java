@@ -17,6 +17,7 @@ package com.manuelvieda.unacloud.entities;
  */
 public class Cluster {
 	
+	private int idCluster;
 	private String name;
 	private String description;
 	
@@ -27,6 +28,20 @@ public class Cluster {
 	
 	//----------------------------------------------------------
 
+
+	/**
+	 * @return the idCluster
+	 */
+	public int getIdCluster() {
+		return idCluster;
+	}
+
+	/**
+	 * @param idCluster the idCluster to set
+	 */
+	public void setIdCluster(int idCluster) {
+		this.idCluster = idCluster;
+	}
 
 	/**
 	 * @return the name
