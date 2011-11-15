@@ -11,6 +11,8 @@ package com.manuelvieda.unacloud.utils.ldap.test;
 
 
 
+import javax.ejb.EJB;
+
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -29,6 +31,7 @@ import com.manuelvieda.unacloud.utils.ldap.LdapUtils;
  */
 public class TestLDAPUtils {
 
+	@EJB
 	private LdapUtils ldapUtils;
 	
 	private User user;
