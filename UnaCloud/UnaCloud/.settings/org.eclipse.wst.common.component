@@ -10,10 +10,6 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="UnaCloudClient.jar" deploy-path="/" handle="module:/resource/UnaCloudClient/UnaCloudClient">
-            <dependent-object/>
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="UnaCloudWebPortal.war" deploy-path="/" handle="module:/resource/UnaCloudWebPortal/UnaCloudWebPortal">
             <dependent-object/>
             <dependency-type>uses</dependency-type>
