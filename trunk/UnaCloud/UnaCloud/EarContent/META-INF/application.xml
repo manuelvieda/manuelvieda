@@ -5,9 +5,6 @@
     <ejb>UnaCloudEJB.jar</ejb>
   </module>
   <module>
-    <java>UnaCloudClient.jar</java>
-  </module>
-  <module>
     <web>
       <web-uri>UnaCloudWebPortal.war</web-uri>
       <context-root>UnaCloudWebPortal</context-root>
