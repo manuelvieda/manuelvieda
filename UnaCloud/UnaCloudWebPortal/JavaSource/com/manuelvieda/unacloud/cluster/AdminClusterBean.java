@@ -23,6 +23,8 @@ import com.manuelvieda.unacloud.beans.user.UserBeanLocal;
 import com.manuelvieda.unacloud.entities.Cluster;
 import com.manuelvieda.unacloud.entities.Instance;
 import com.manuelvieda.unacloud.entities.general.UserInstance;
+import com.manuelvieda.unacloud.generic.GenericBackingBean;
+import com.manuelvieda.unacloud.provider.ICloudProvider;
 import com.manuelvieda.unacloud.repository.services.ClusterService;
 
 /**
@@ -33,7 +35,7 @@ import com.manuelvieda.unacloud.repository.services.ClusterService;
  */
 @ManagedBean (name="adminClusterBean")
 @ViewScoped
-public class AdminClusterBean {
+public class AdminClusterBean extends GenericBackingBean{
 	
 	@EJB
 	private ClusterService clusterService;
@@ -41,7 +43,12 @@ public class AdminClusterBean {
 	@EJB
 	private UserBeanLocal userBean;
 	
+	@EJB (mappedName="unaCloudAmazonEC2Bean")
+	private ICloudProvider amazonEC2;
+	
+	
 	private List<Cluster> userClustersLst;
+	
 	private List<Instance> userClustersInstancesLst;
 	
 	private Cluster selectedCluster;
@@ -51,15 +58,45 @@ public class AdminClusterBean {
 
 	@PostConstruct
 	public void init(){
-		selectedCluster = getUserClustersLst().get(0); 
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String turnOn(){
 		
-		for(int i=0; i<15; i++){
-			System.out.println("Prueba de inicio de maquinas.... "+i);
+		if(selectedCluster!=null){
+			com.manuelvieda.unacloud.entities.general.Cluster cluster = clusterService.getCluster(selectedCluster.getIdCluster());
+			amazonEC2.turnOnCluster(cluster);
 		}
-		System.out.println("Iniciando Cluster en AMAZON EC2");
+		
+		return "";
+	}
+	
+	public String turnOff(){
+		com.manuelvieda.unacloud.entities.general.Cluster cluster = clusterService.getCluster(selectedCluster.getIdCluster());
+		amazonEC2.turnOffCluster(cluster);
+		return "";
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String selectCluster(){
+		
+		int idCluster = Integer.parseInt(getRequestParam().get("idCluster"));
+		com.manuelvieda.unacloud.entities.general.Cluster cluster = clusterService.getCluster(idCluster);
+		if(cluster!=null){
+			selectedCluster = new Cluster();
+			selectedCluster.setIdCluster(cluster.getId());
+			selectedCluster.setName(cluster.getName());
+			selectedCluster.setDescription(cluster.getDescription());
+			selectedCluster.setState(cluster.getState().getDescription());
+			selectedCluster.setIdState(cluster.getState().getId());
+			selectedCluster.setTotalInstances(cluster.getUserinstances().size());
+		}
 		return "";
 	}
 	
@@ -85,12 +122,15 @@ public class AdminClusterBean {
 		if(CollectionUtils.isEmpty(userClustersLst)){
 			userClustersLst = new ArrayList<Cluster>();
 			List<com.manuelvieda.unacloud.entities.general.Cluster> clusterUsuario = clusterService.getUserClusters(userBean.getUsername());
+			
 			for (com.manuelvieda.unacloud.entities.general.Cluster cluster : clusterUsuario) {
 				Cluster clusterPortal = new Cluster();
+				clusterPortal.setIdCluster(cluster.getId());
 				clusterPortal.setName(cluster.getName());
 				clusterPortal.setDescription(cluster.getDescription());
-				clusterPortal.setState(cluster.getStateBean().getDescription());
-				clusterPortal.setIdState(cluster.getStateBean().getId());
+				clusterPortal.setState(cluster.getState().getDescription());
+				clusterPortal.setIdState(cluster.getState().getId());
+				clusterPortal.setTotalInstances(cluster.getUserinstances().size());
 				userClustersLst.add(clusterPortal);
 			}
 		}
@@ -109,23 +149,22 @@ public class AdminClusterBean {
 	 */
 	public List<Instance> getUserClustersInstancesLst() {
 		
-		if(CollectionUtils.isEmpty(userClustersInstancesLst)){
-			
-			System.out.println("Obteniendo instancias de usuario en cluster...");
-			
+		
+		if(selectedCluster!=null){	
 			userClustersInstancesLst = new ArrayList<Instance>();
-			List<UserInstance> usrInst = clusterService.getUserInstances(userBean.getUsername());
+			List<UserInstance> usrInst = clusterService.getUserInstancesByCluster(userBean.getUsername(), selectedCluster.getIdCluster());
 			for (UserInstance userInstance : usrInst) {
 				Instance instan = new Instance();
 				instan.setId(userInstance.getId());
-				instan.setProvider(userInstance.getClusterBean().getName());
+				instan.setProvider(userInstance.getCluster().getName());
 				instan.setInstanceType(userInstance.getInstancetype().getName());
 				instan.setPrice(userInstance.getInstancetype().getPrice());
-				System.out.println("Id: "+instan.getId()+"--"+userInstance.getId()+"  // Cluster "+userInstance.getClusterBean().getName());
+				System.out.println("Id: "+instan.getId()+"--"+userInstance.getId()+"  // Cluster "+userInstance.getCluster().getName());
 				userClustersInstancesLst.add(instan);
 				
 			}
-			
+		}else{
+			userClustersInstancesLst = new ArrayList<Instance>();
 		}
 		return userClustersInstancesLst;
 	}

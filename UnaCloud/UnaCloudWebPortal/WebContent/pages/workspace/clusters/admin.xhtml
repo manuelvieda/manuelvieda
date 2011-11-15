@@ -37,7 +37,9 @@
 						<h:outputText value="#{clusterInfo.totalInstances}" id="clusterQuiantity" />
 					</rich:column>
 					<rich:column ><f:facet name="header"><h:outputText value="View details" /></f:facet>
-						<h:outputText value="VER" id="clusterViewLink" />
+						<h:commandLink value="Details" action="#{adminClusterBean.selectCluster}">
+							<f:param name="idCluster" value="#{clusterInfo.idCluster}" />
+						</h:commandLink>
 					</rich:column>
 					
 				</rich:dataTable>
@@ -70,8 +72,9 @@
 					</rich:column>
 				</rich:dataTable>
 				<br />
-				<h:panelGrid>
-				<a4j:commandButton action="#{adminClusterBean.turnOn}" value="Turn On" render="adminWorkspaceForm"  />
+				<h:panelGrid columns="2">
+					<a4j:commandButton action="#{adminClusterBean.turnOn}" value="Turn On" render="adminWorkspaceForm"  />
+					<a4j:commandButton action="#{adminClusterBean.turnOff}" value="Turn Off" render="adminWorkspaceForm"  />
 				</h:panelGrid>
 				</a4j:region>
 			</h:form>
