@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
 Class-Path: UnaCloudUtilsEJB.jar, 
- UnaCloudEntities.jar
+ UnaCloudEntities.jar 
+ UnaCloudUtils.jar
 

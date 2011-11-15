@@ -36,5 +36,12 @@ public interface UserInstanceDao {
 	 * @param username
 	 */
 	public List<UserInstance> getUserInstances(String username);
+
+	/**
+	 * @param username
+	 * @param clusterId
+	 * @return
+	 */
+	public List<UserInstance> getUserInstancesByCluster(String username, int clusterId);
 	
 }

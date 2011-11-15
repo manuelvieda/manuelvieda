@@ -9,12 +9,29 @@
  */
 package com.manuelvieda.unacloud.provider;
 
+import javax.ejb.Local;
+
+import com.manuelvieda.unacloud.entities.general.Cluster;
+
 /**
  *
  * @author Manuel Eduardo Vieda Salomon  (mail@manuelvieda.com)
  * @version	1.0
  * @since	1.0
  */
+@Local
 public interface ICloudProvider {
+	
+	/**
+	 * 
+	 * @param cluster
+	 */
+	public void turnOnCluster(Cluster cluster);
+	
+	/**
+	 * 
+	 * @param cluster
+	 */
+	public void turnOffCluster(Cluster cluster);
 
 }

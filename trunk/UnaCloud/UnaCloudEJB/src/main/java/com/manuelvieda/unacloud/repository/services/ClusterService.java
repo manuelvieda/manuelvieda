@@ -76,18 +76,15 @@ public class ClusterService {
 			// Get the owner's user object
 			User owner = userDao.find(usernameOwner);
 			
-			System.out.println("---- Owner");
 			if(owner!=null){
 				State stateCluster = stateDao.find(idState);
-				System.out.println("----State");
 				
 				if(stateCluster!=null){
-					System.out.println("---- asd");
 					Cluster cluster = new Cluster();
 					cluster.setUser(owner);
 					cluster.setName(name);
 					cluster.setDescription(description);
-					cluster.setStateBean(stateCluster);
+					cluster.setState(stateCluster);
 					clusterDao.createCluster(cluster);
 					
 					// Asign instances to the cluster
@@ -104,10 +101,9 @@ public class ClusterService {
 							for(int i = 0; i<quantity; i++){
 								// A valid instance type
 								UserInstance userInstance = new UserInstance();
-								userInstance.setClusterBean(cluster);
+								userInstance.setCluster(cluster);
 								userInstance.setInstancetype(instanceType);
-								userInstance.setStateBean(stateInstance);
-								System.out.println("Id: "+userInstance.getId()+"  // Cluster "+userInstance.getClusterBean());
+								userInstance.setState(stateInstance);
 								userInstanceDao.createUserInstance(userInstance);
 							}
 						}
@@ -120,6 +116,15 @@ public class ClusterService {
 	
 	
 	/**
+	 * Return the cluster identified with <code>idCluster</code>
+	 * @param idCluster
+	 * @return
+	 */
+	public Cluster getCluster(int idCluster){
+		return clusterDao.find(idCluster);
+	}
+	
+	/**
 	 * 
 	 * @param username
 	 * @return
@@ -128,9 +133,23 @@ public class ClusterService {
 		return clusterDao.findByUser(username);
 	}
 	
-	
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public List<UserInstance> getUserInstances(String username){
 		return userInstanceDao.getUserInstances(username);
+	}
+	
+	/**
+	 * 
+	 * @param username
+	 * @param clusterId
+	 * @return
+	 */
+	public List<UserInstance> getUserInstancesByCluster(String username, int clusterId){
+		return userInstanceDao.getUserInstancesByCluster(username, clusterId);
 	}
 
 }

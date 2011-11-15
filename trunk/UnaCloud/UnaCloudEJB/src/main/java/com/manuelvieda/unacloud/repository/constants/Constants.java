@@ -31,6 +31,7 @@ public class Constants {
 
 	// USER INSTANCES
 	public static final String NQ_USER_INSTANCES_FIND_BY_USER = "userInstances.findByUser";
+	public static final String NQ_USER_INSTANCES_FIND_BY_USER_CLUSTER = "userInstances.findByUserCluster";
 	
 	
 	// STATUS

@@ -9,11 +9,19 @@
  */
 package com.manuelvieda.unacloud.provider.amazon;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.ejb.Stateless;
+
+import org.apache.commons.collections.CollectionUtils;
+
+import com.manuelvieda.unacloud.entities.general.Cluster;
+import com.manuelvieda.unacloud.entities.general.UserInstance;
 import com.manuelvieda.unacloud.provider.ICloudProvider;
 import com.manuelvieda.unacloud.repository.constants.AWSConstants;
 import com.amazonaws.AmazonClientException;
@@ -40,6 +48,7 @@ import com.amazonaws.services.ec2.model.SecurityGroup;
  * @version	1.0
  * @since	1.0
  */
+@Stateless (name="unaCloudAmazonEC2Bean")
 public class UnaCloudAmazonEC2 implements ICloudProvider {
 	
 	/**
@@ -62,6 +71,56 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 		 ec2 = new AmazonEC2Client(credentials);
 	}
 	
+	
+	// -------------------------------------------------------------
+	// CLUSTER PROVIDER INTERFACE
+	// -------------------------------------------------------------
+	
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.provider.ICloudProvider#turnOnCluster(com.manuelvieda.unacloud.entities.general.Cluster)
+	 */
+	@Override
+	public void turnOnCluster(Cluster cluster) {
+		
+		String availabilityZone = "us-east-1a";
+		String imageId = "ami-1b814f72";
+		String groupName = cluster.getName().replaceAll(" ", "_");
+		boolean monitoring = false;
+		String keyName = "pruebasUnaCloud";
+		
+		List<UserInstance> userInstances = cluster.getUserinstances();
+		for (UserInstance userInstance : userInstances) {
+			String instanceType = "t1.micro";
+			int quantity = 1;
+			
+			RunInstancesResult result = requestInstance(availabilityZone, groupName, imageId, instanceType, quantity, monitoring, keyName);
+			Reservation reservation = result.getReservation();
+			
+			List<Instance> instances = reservation.getInstances();
+			if(CollectionUtils.isNotEmpty(instances)){
+				Instance ec2Instance = instances.get(0);
+				String id = ec2Instance.getInstanceId();
+
+			}
+			
+		}
+		
+		
+		
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.provider.ICloudProvider#turnOffCluster(com.manuelvieda.unacloud.entities.general.Cluster)
+	 */
+	@Override
+	public void turnOffCluster(Cluster cluster) {
+		
+	}
+
+	// -------------------------------------------------------------
+	// PRIVATE FUNCTIONS / METHODS
+	// -------------------------------------------------------------
 	
 	
 	public void requestSpotInstance(){
@@ -93,7 +152,7 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 	 * @param monitoring - Enables monitoring for the instance.
 	 * @param keyName
 	 */
-	public void requestInstance(String availabilityZone, String groupName, String imageId, String instanceType, int quantity, boolean monitoring, String keyName){
+	public RunInstancesResult requestInstance(String availabilityZone, String groupName, String imageId, String instanceType, int quantity, boolean monitoring, String keyName){
 		
 		RunInstancesRequest requestInstance = new RunInstancesRequest();
 		
@@ -132,13 +191,7 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			System.out.println("   --> State: "+instance.getState().getName());
 		}
 		
-		
-		
-		
-		
-		
-		
-		
+		return result;
 	}
 	
 	
@@ -166,8 +219,6 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			}
 			
 			
-			
-			
 		}catch(AmazonClientException e){
 			e.printStackTrace();
 		}
@@ -178,11 +229,19 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 	
 	private void retrieveCredentials(){
 		try {
-			credentials = new PropertiesCredentials(AmazonEC2.class.getResourceAsStream("/AwsCredentials.properties"));
+			System.out.println("--->> Obteniendo credenciales");
+			URL url1 = this.getClass().getResource("/AwsCredentials.properties");
+			System.out.println("--->>");
+			System.out.println("--->>"+url1);
+			System.out.println("--->>"+url1.getFile());
+			credentials = new PropertiesCredentials(new File(url1.getFile()));
+		//credentials = new PropertiesCredentials(AmazonEC2.class.getResourceAsStream(url1.getFile()));
+			System.out.println("OK");
+			//credentials = new PropertiesCredentials(this.getClass().getResourceAsStream(url1.getFile()));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 }

@@ -21,7 +21,11 @@
 	<!-- USER ISNTANCES -->
 	
 	<named-query name="userInstances.findByUser">
-		<query>SELECT ui FROM UserInstance ui WHERE ui.clusterBean.user.id = :username </query>
+		<query>SELECT ui FROM UserInstance ui WHERE ui.cluster.user.id = :username </query>
+	</named-query>
+	
+	<named-query name="userInstances.findByUserCluster">
+		<query>SELECT ui FROM UserInstance ui WHERE ui.cluster.user.id = :username and ui.cluster.id = :clusterId </query>
 	</named-query>
 	
 	

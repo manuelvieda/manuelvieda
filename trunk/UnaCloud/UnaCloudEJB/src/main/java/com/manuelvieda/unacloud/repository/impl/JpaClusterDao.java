@@ -12,6 +12,7 @@ package com.manuelvieda.unacloud.repository.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityTransaction;
 
 import com.manuelvieda.unacloud.entities.general.Cluster;
 import com.manuelvieda.unacloud.entities.general.State;
@@ -28,6 +29,15 @@ import com.manuelvieda.unacloud.repository.dao.ClusterDao;
 @Stateless(mappedName="clusterDao")
 public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.ClusterDao#find(int)
+	 */
+	@Override
+	public Cluster find(int idCluster) {
+		return entityManager.find(Cluster.class, idCluster);
+	}
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * @see com.manuelvieda.unacloud.repository.dao.ClusterDao#createCluster(int, java.lang.String, java.lang.String, int)
@@ -40,7 +50,7 @@ public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 			cluster.setName(name);
 			cluster.setDescription(description);
 			cluster.setUser(user);
-			cluster.setStateBean(state);
+			cluster.setState(state);
 			createCluster(cluster);
 		}
 	}
@@ -51,8 +61,10 @@ public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 	 */
 	@Override
 	public void createCluster(Cluster cluster) {
-		System.out.println("persistiendo Custer");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		entityManager.persist(cluster);
+		entityTransaction.commit();
 	}
 
 	
