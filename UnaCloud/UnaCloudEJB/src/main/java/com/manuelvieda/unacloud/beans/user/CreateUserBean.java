@@ -2,8 +2,6 @@ package com.manuelvieda.unacloud.beans.user;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 
 import com.manuelvieda.unacloud.entities.general.User;
 import com.manuelvieda.unacloud.repository.dao.UserDao;
@@ -13,7 +11,6 @@ import com.manuelvieda.unacloud.repository.impl.JpaUserDao;
  * Session Bean implementation class CreateUserBean
  */
 @Stateless (name="unacloudCreateUserBean")
-@TransactionManagement(TransactionManagementType.BEAN)
 public class CreateUserBean implements CreateUserBeanLocal {
 	
 	private UserDao userDao;

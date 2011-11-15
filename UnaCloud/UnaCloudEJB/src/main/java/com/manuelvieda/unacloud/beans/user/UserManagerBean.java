@@ -33,10 +33,10 @@ public class UserManagerBean implements UserManagerBeanLocal {
 
 	public void setUser(String username, String firstname, String lastname, String password){
 		User user = new User();
-		user.setId("tst");
-		user.setFirstName("test");
-		user.setLastName("test");
-		user.setPassword("test");
+		user.setId(username);
+		user.setFirstName(firstname);
+		user.setLastName(lastname);
+		user.setPassword(password);
 		user.setEmail("email");
 		user.setRegistrationTime(Calendar.getInstance().getTime());
 

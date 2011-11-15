@@ -12,6 +12,7 @@ package com.manuelvieda.unacloud.repository.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityTransaction;
 
 import com.manuelvieda.unacloud.entities.general.UserInstance;
 import com.manuelvieda.unacloud.repository.constants.Constants;
@@ -32,7 +33,16 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 	 */
 	@Override
 	public void createUserInstance(UserInstance userInstance) {
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		System.out.println(userInstance.getId());
+		System.out.println(userInstance.getInstancetype().getId());
+		System.out.println(userInstance.getInstancetype().getName());
+		System.out.println(userInstance.getState().getId());
+		System.out.println(userInstance.getState().getDescription());
 		entityManager.persist(userInstance);
+		System.out.println("persistido UI");
+		entityTransaction.commit();
 		
 	}
 
@@ -46,6 +56,19 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 		return entityManager.createNamedQuery(Constants.NQ_USER_INSTANCES_FIND_BY_USER)
 				.setParameter("username", username)
 				.getResultList();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.UserInstanceDao#getUserInstancesByCluster(java.lang.String, java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserInstance> getUserInstancesByCluster(String username, int clusterId) {
+		return entityManager.createNamedQuery(Constants.NQ_USER_INSTANCES_FIND_BY_USER_CLUSTER)
+				.setParameter("username", username)
+				.setParameter("clusterId", clusterId)
+				.getResultList();
+		
 	}
 
 }

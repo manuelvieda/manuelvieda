@@ -60,7 +60,7 @@ public class JpaUserDao extends JpaGeneric implements UserDao{
 		user.setRole(role);
 		
 		State state = entityManager.find(State.class, 1);
-		user.setStateBean(state);
+		user.setState(state);
 		entityManager.persist(user);
 		entityTransaction.commit();
 	}

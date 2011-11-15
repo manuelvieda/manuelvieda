@@ -26,7 +26,12 @@ import com.manuelvieda.unacloud.entities.general.User;
 @Local
 public interface ClusterDao {
 	
-	
+	/**
+	 * 
+	 * @param idCluster
+	 * @return
+	 */
+	public Cluster find(int idCluster);
 	/**
 	 * 
 	 * @param user
