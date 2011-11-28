@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -24,6 +25,7 @@ import com.manuelvieda.unacloud.entities.general.Cluster;
 import com.manuelvieda.unacloud.entities.general.UserInstance;
 import com.manuelvieda.unacloud.provider.ICloudProvider;
 import com.manuelvieda.unacloud.repository.constants.AWSConstants;
+import com.manuelvieda.unacloud.repository.dao.UserInstanceDao;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.*;
 import com.amazonaws.services.ec2.AmazonEC2;
@@ -31,16 +33,20 @@ import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AvailabilityZone;
 import com.amazonaws.services.ec2.model.CreatePlacementGroupRequest;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.InstanceStateChange;
 import com.amazonaws.services.ec2.model.LaunchSpecification;
 import com.amazonaws.services.ec2.model.Placement;
 import com.amazonaws.services.ec2.model.RequestSpotInstancesRequest;
-import com.amazonaws.services.ec2.model.RequestSpotInstancesResult;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.SecurityGroup;
+import com.amazonaws.services.ec2.model.StopInstancesRequest;
+import com.amazonaws.services.ec2.model.StopInstancesResult;
 
 /**
  * Class that implements the functionality of Amazon Elastic Cloud Computing 
@@ -48,8 +54,13 @@ import com.amazonaws.services.ec2.model.SecurityGroup;
  * @version	1.0
  * @since	1.0
  */
+
 @Stateless (name="unaCloudAmazonEC2Bean")
 public class UnaCloudAmazonEC2 implements ICloudProvider {
+	
+	
+	@EJB
+	private UserInstanceDao userInstanceDao;
 	
 	/**
 	 * Amazon AWS Autentication credentials
@@ -100,12 +111,53 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			if(CollectionUtils.isNotEmpty(instances)){
 				Instance ec2Instance = instances.get(0);
 				String id = ec2Instance.getInstanceId();
-
+				String dnsName = ec2Instance.getPublicDnsName();
+				userInstance.setIdentifier(id);
+				userInstanceDao.updateInstanteMonitoringInfo(userInstance.getId(), id, 16, dnsName);
 			}
 			
 		}
 		
 		
+		boolean termino = false;
+		
+		while(!termino){
+			
+			termino = true;
+			// Sleep
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			// Obtiene la informacion del estado de las instancias lanzadas
+			for (UserInstance userInstance : userInstances) {
+				
+				if(userInstance.getDnsName()==null || "".equals(userInstance.getDnsName())){
+					termino = false;
+					
+					Collection<String> ids = new ArrayList<String>();
+					ids.add(userInstance.getIdentifier());
+					DescribeInstancesRequest request = new DescribeInstancesRequest();
+					request.setInstanceIds(ids);
+					request.setRequestCredentials(credentials);
+					DescribeInstancesResult result = ec2.describeInstances(request);
+					
+					String publicDNSName = result.getReservations().get(0).getInstances().get(0).getPublicDnsName();
+					if(publicDNSName!=null && !publicDNSName.equals("")){
+						userInstanceDao.updateInstanteMonitoringInfo(userInstance.getId(), userInstance.getIdentifier(), 16, publicDNSName);
+						userInstance.setDnsName(publicDNSName);
+					}
+						
+				}
+				
+				
+			}
+			
+		}
+		System.out.println("Termino de crear Cluster en AMAZON EC2");
+
 		
 		
 	}
@@ -115,6 +167,32 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 	 */
 	@Override
 	public void turnOffCluster(Cluster cluster) {
+		
+		List<UserInstance> userInstances = cluster.getUserinstances();
+		
+		ArrayList<String> instanceIds = new ArrayList<String>();
+		for (UserInstance userInstance : userInstances) {
+			instanceIds.add(userInstance.getIdentifier());
+		}
+		
+		StopInstancesRequest request = new StopInstancesRequest();
+		request.setInstanceIds(instanceIds);
+		
+		StopInstancesResult  result = ec2.stopInstances(request);
+		
+		List<InstanceStateChange>  stopppingInstances = result.getStoppingInstances();
+		for (InstanceStateChange instanceStateChange : stopppingInstances) {
+			System.out.println("--> Terminandom instancia: "+instanceStateChange.getInstanceId());
+		}
+		
+		
+		for (UserInstance userInstance : userInstances) {
+			userInstanceDao.updateInstanteMonitoringInfo(userInstance.getId(), "", 15, "");
+		}
+		
+
+		// Terminate each instance
+		
 		
 	}
 
@@ -139,7 +217,7 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 		requestRequest.setLaunchSpecification(launchSpecification);
 		
 		// Call the RequestSpotInstance API.
-		RequestSpotInstancesResult requestResult = ec2.requestSpotInstances(requestRequest);
+		//RequestSpotInstancesResult requestResult = ec2.requestSpotInstances(requestRequest);
 	}
 	
 	/**
@@ -190,6 +268,8 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			System.out.println("   --> Launch time: "+instance.getLaunchTime());
 			System.out.println("   --> State: "+instance.getState().getName());
 		}
+		
+		
 		
 		return result;
 	}
