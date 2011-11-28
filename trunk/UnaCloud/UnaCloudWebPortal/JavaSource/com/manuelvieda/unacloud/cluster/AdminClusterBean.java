@@ -43,7 +43,7 @@ public class AdminClusterBean extends GenericBackingBean{
 	@EJB
 	private UserBeanLocal userBean;
 	
-	@EJB (mappedName="unaCloudAmazonEC2Bean")
+	@EJB (name="unaCloudAmazonEC2Bean")
 	private ICloudProvider amazonEC2;
 	
 	
@@ -159,7 +159,8 @@ public class AdminClusterBean extends GenericBackingBean{
 				instan.setProvider(userInstance.getCluster().getName());
 				instan.setInstanceType(userInstance.getInstancetype().getName());
 				instan.setPrice(userInstance.getInstancetype().getPrice());
-				System.out.println("Id: "+instan.getId()+"--"+userInstance.getId()+"  // Cluster "+userInstance.getCluster().getName());
+				instan.setStatus(userInstance.getState().getDescription());
+				instan.setPublicDNS(userInstance.getDnsName());
 				userClustersInstancesLst.add(instan);
 				
 			}

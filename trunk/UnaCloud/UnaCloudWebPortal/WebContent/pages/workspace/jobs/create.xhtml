@@ -17,7 +17,122 @@
 			<li class="last"><h:form><h:commandLink value="Logout" action="#{loginBean.doLogout}" /></h:form></li>
 		</ul>
 	</ui:define>
+	
 	<ui:define name="body">
+			<div id="pageTitle">
+			Creating a new JOB...
+		</div>
+		
+		<div id="divBodyCreate">
+			<h:form id="createJobFormBean">
+				<h2>A general description... </h2>
+				<h:panelGrid columns="3">
+					<h:outputText value="Name:" />
+					<h:inputText value="#{createJobBean.name}" id="name" size="50" tabindex="1">
+						<rich:validator summary="Invalid name" />
+					</h:inputText>
+					<rich:message for="name" />
+
+					<h:outputText value="Description:" />
+					<h:inputTextarea value="#{createJobBean.description}" id="description" rows="3" cols="52" tabindex="2">
+						<rich:validator summary="Invalid description" />
+					</h:inputTextarea>
+					<rich:message for="description" />
+				</h:panelGrid>
+				
+				<h2>Select Target Machine...</h2>
+				
+				<h:panelGrid columns="3">
+					
+					<h:outputText value="Cluster" />
+					<rich:select id="clusterSelector" defaultLabel="Select one" value="#{createJobBean.cluster}">
+						<f:selectItems value="#{createJobBean.clusterLst}"/>
+						<a4j:ajax event="change"  render="clusterInstanceSelector"/>
+						<rich:validator summary="Invalid value" />
+					</rich:select>
+					<rich:message for="clusterSelector" />
+					
+					<h:outputText value="Instance" />
+					<rich:select id="clusterInstanceSelector" defaultLabel="Select one" value="#{createJobBean.instance}">
+						<f:selectItems value="#{createJobBean.instanceLst}"/>
+						<rich:validator summary="Invalid value" />
+					</rich:select>
+					<rich:message for="clusterInstanceSelector" />
+					
+					
+				</h:panelGrid>
+				
+				<h2>Define properties...</h2>
+				
+				<h:panelGrid columns="2">
+					
+					<h:outputText value="Application:" />
+					<rich:select id="applicationSelector" defaultLabel="Select one" value="#{createJobBean.application}">
+						<f:selectItems value="#{createJobBean.applicationLst}"/>
+						<a4j:ajax event="change"  render="applicationParameterSelector"/>
+					</rich:select>
+					
+					
+					<h:outputText value="Select parameter:" />
+					<rich:select id="applicationParameterSelector" defaultLabel="Select one" value="#{createJobBean.applicationParameter}">
+						<f:selectItems value="#{createJobBean.applicationParameterLst}" />
+						<a4j:ajax event="change" render="parameterValue"/>
+					</rich:select>
+					
+					
+					<h:outputText value="Parameter value:" />
+					<h:inputText id="parameterValue" value="#{createJobBean.parameterValue}" size="20" />
+					
+					<a4j:commandButton value="Add parameter" action="#{createJobBean.addParameter}" render="createJobFormBean" />
+					
+				</h:panelGrid>
+				
+				<h2>Alredy Defined properties...</h2>
+				
+				<rich:dataTable value="#{createJobBean.definedApplicationParameters}"  var="parameter" rows="20" rowKeyVar="row" id="applicationParametersTable" >
+				
+					<f:facet name="header"><h:outputText value="Application Parameters" /></f:facet>
+
+					<rich:column>
+						<f:facet name="header"><h:outputText value="ID" /></f:facet>
+						<h:outputText value="#{parameter.id}" id="parameterID" />
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Name" /></f:facet>
+						<h:outputText value="#{parameter.name}" id="parameterName" />
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Description" /></f:facet>
+						<h:outputText value="#{parameter.description}" id="parameterDescription" />
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Type" /></f:facet>
+						<h:outputText value="#{parameter.type}" id="parameterType" />
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Value" /></f:facet>
+						<h:outputText value="#{parameter.value}" id="parameterValue" />
+					</rich:column>
+					
+				</rich:dataTable>
+
+				<br />
+				<a4j:region>
+				<h:panelGrid columns="3" id="buttons">
+					<a4j:commandButton value="Create Job" action="#{createJobBean.createJob}" render="createJobFormBean" />
+					<a4j:commandButton value="Create and Lunch Job" action="#{createJobBean.createLunchJob}" render="createJobFormBean" />
+					<a4j:commandButton value="Cancel" action="#{createJobBean.cancelJob}" render="createJobFormBean" />
+				</h:panelGrid>
+				</a4j:region>
+
+				
+			</h:form>
+		</div>
+	
 	</ui:define>
 </ui:composition>
 </html>
