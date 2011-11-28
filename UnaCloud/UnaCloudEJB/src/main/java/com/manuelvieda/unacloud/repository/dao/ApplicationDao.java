@@ -9,7 +9,12 @@
  */
 package com.manuelvieda.unacloud.repository.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
+
+import com.manuelvieda.unacloud.entities.general.Application;
+import com.manuelvieda.unacloud.entities.general.ApplicationParameter;
 
 /**
  * Interface for Entity Bean implementation class JpaApplicationDao
@@ -19,5 +24,19 @@ import javax.ejb.Local;
  */
 @Local
 public interface ApplicationDao {
-
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Application find(int id);
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Application> getAllApplications();
+	
 }

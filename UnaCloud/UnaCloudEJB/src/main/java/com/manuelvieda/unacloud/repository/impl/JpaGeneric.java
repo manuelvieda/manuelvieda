@@ -42,13 +42,23 @@ public class JpaGeneric {
 	
 	// -----------------------------------------------------------------------
 	
-	
+	/**
+	 * 
+	 */
 	@PostConstruct
 	public void init(){
-		entityManager = entityManagerFactory.createEntityManager();
-		System.out.println("Crado Entity Manager");
+		if(entityManagerFactory!=null && entityManagerFactory.isOpen()){
+			entityManager = entityManagerFactory.createEntityManager();
+		}else{
+			entityManagerFactory = Persistence.createEntityManagerFactory("UnaCloudEntities");
+			entityManager = entityManagerFactory.createEntityManager();
+		}
+		
 	}
 	
+	/**
+	 * 
+	 */
 	@PreDestroy
 	public void destroy(){
 		entityManager.close();

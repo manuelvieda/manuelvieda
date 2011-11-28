@@ -20,7 +20,7 @@ import com.manuelvieda.unacloud.repository.dao.StateDao;
  * @version	1.0
  * @since	1.0
  */
-@Stateless(mappedName="roleDao")
+@Stateless(mappedName="stateDao")
 public class JpaStateDao extends JpaGeneric implements StateDao {
 
 	
