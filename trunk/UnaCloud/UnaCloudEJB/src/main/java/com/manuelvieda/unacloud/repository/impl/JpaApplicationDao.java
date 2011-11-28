@@ -9,8 +9,12 @@
  */
 package com.manuelvieda.unacloud.repository.impl;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
+import com.manuelvieda.unacloud.entities.general.Application;
+import com.manuelvieda.unacloud.repository.constants.Constants;
 import com.manuelvieda.unacloud.repository.dao.ApplicationDao;
 
 /**
@@ -21,5 +25,23 @@ import com.manuelvieda.unacloud.repository.dao.ApplicationDao;
  */
 @Stateless(mappedName="applicationDao")
 public class JpaApplicationDao extends JpaGeneric implements ApplicationDao {
+
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.ApplicationDao#find(int)
+	 */
+	@Override
+	public Application find(int id) {
+		return entityManager.find(Application.class, id);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.ApplicationDao#getAllApplications()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Application> getAllApplications() {
+		return entityManager.createNamedQuery(Constants.NQ_APPLICATION_FINAL_ALL)
+				.getResultList();
+	}
 
 }

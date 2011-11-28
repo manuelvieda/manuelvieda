@@ -44,4 +44,12 @@ public interface UserInstanceDao {
 	 */
 	public List<UserInstance> getUserInstancesByCluster(String username, int clusterId);
 	
+	/**
+	 * 
+	 * @param id
+	 * @param status
+	 * @param publicDns
+	 */
+	public void updateInstanteMonitoringInfo(int id, String idProvider, int status, String publicDns);
+	
 }

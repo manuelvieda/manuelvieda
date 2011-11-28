@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityTransaction;
 
+import com.manuelvieda.unacloud.entities.general.State;
 import com.manuelvieda.unacloud.entities.general.UserInstance;
 import com.manuelvieda.unacloud.repository.constants.Constants;
 import com.manuelvieda.unacloud.repository.dao.UserInstanceDao;
@@ -26,7 +27,8 @@ import com.manuelvieda.unacloud.repository.dao.UserInstanceDao;
  */
 @Stateless(mappedName="userUserInstanceDao")
 public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
-
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * @see com.manuelvieda.unacloud.repository.dao.UserInstanceDao#createUserInstance(com.manuelvieda.unacloud.entities.general.UserInstance)
@@ -69,6 +71,34 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 				.setParameter("clusterId", clusterId)
 				.getResultList();
 		
+	}
+	
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.UserInstanceDao#updateInstanteMonitoringInfo(int, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void updateInstanteMonitoringInfo(int id, String idProvider, int status, String publicDns){
+		
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		
+		UserInstance instance = entityManager.find(UserInstance.class, id);
+		
+		if(idProvider!=null)
+			instance.setIdentifier(idProvider);
+		
+		State state = entityManager.find(State.class, status);
+		if(state!=null)
+			instance.setState(state);
+		
+		if(publicDns!=null)
+			instance.setDnsName(publicDns);
+		
+		entityManager.merge(instance);
+		
+		entityTransaction.commit();
 	}
 
 }
