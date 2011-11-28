@@ -45,6 +45,17 @@ public class Instance {
 	 */
 	private double price;
 	
+	/**
+	 * 
+	 */
+	private String status;
+	
+	
+	/**
+	 * 
+	 */
+	private String publicDNS;
+	
 	
 	// ---------------------------------------------------------
 	
@@ -144,6 +155,34 @@ public class Instance {
 	 */
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the publicDNS
+	 */
+	public String getPublicDNS() {
+		return publicDNS;
+	}
+
+	/**
+	 * @param publicDNS the publicDNS to set
+	 */
+	public void setPublicDNS(String publicDNS) {
+		this.publicDNS = publicDNS;
 	}
 	
 

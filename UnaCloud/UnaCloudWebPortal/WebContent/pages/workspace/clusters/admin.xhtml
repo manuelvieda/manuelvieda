@@ -70,6 +70,12 @@
 					<rich:column ><f:facet name="header"><h:outputText value="Price" /></f:facet>
 						<h:outputText value="#{userInstance.price}" id="instancePrice" />
 					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="Status" /></f:facet>
+						<h:outputText value="#{userInstance.status}" id="instanceStatus" />
+					</rich:column>
+					<rich:column ><f:facet name="header"><h:outputText value="Public DNS" /></f:facet>
+						<h:outputText value="#{userInstance.publicDNS}" id="instancePublicDNS" />
+					</rich:column>
 				</rich:dataTable>
 				<br />
 				<h:panelGrid columns="2">
