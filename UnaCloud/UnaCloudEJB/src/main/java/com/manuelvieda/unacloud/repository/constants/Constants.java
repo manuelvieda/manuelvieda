@@ -20,6 +20,13 @@ public class Constants {
 	/**
 	 * NAMED QUERIES
 	 */
+	
+	// APPLICATIONS
+	public static final String NQ_APPLICATION_FINAL_ALL = "application.findAll";
+	
+	// APPLICATION PARAMETERS
+	public static final String NQ_APPLICATION_PARAMETERS_GET_BY_APP = "applicationParameter.byApplication";
+	
 	// CLOUD PROVIDER
 	public static final String NQ_CLOUD_PROVIDER_FIND_ALL = "cloudProvider.findAll";
 	

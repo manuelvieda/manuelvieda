@@ -1,5 +1,7 @@
 Manifest-Version: 1.0
 Class-Path: UnaCloudUtilsEJB.jar, 
  UnaCloudEntities.jar 
- UnaCloudUtils.jar
+ UnaCloudUtils.jar 
+ aws-java-sdk-1.2.10.jar 
+ commons-lang3-3.0.1.jar
 
