@@ -23,7 +23,7 @@ public class ApplicationParameter implements Serializable {
 	private String description;
 
 	@Column(nullable=false)
-	private byte mandatory;
+	private boolean mandatory;
 
 	@Column(nullable=false, length=50)
 	private String name;
@@ -55,11 +55,11 @@ public class ApplicationParameter implements Serializable {
 		this.description = description;
 	}
 
-	public byte getMandatory() {
+	public boolean getMandatory() {
 		return this.mandatory;
 	}
 
-	public void setMandatory(byte mandatory) {
+	public void setMandatory(boolean mandatory) {
 		this.mandatory = mandatory;
 	}
 

@@ -22,6 +22,9 @@ public class UserInstance implements Serializable {
 
 	@Column(length=150)
 	private String dnsName;
+	
+	@Column(length=50)
+	private String identifier;
 
 	//bi-directional many-to-one association to InstanceParameter
 	@OneToMany(mappedBy="userinstance")
@@ -67,6 +70,14 @@ public class UserInstance implements Serializable {
 
 	public void setDnsName(String dnsName) {
 		this.dnsName = dnsName;
+	}
+	
+	public String getIdentifier() {
+		return identifier;
+	}
+	
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 	public List<InstanceParameter> getInstanceparameters() {
