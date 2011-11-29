@@ -9,6 +9,7 @@
  */
 package com.manuelvieda.unacloud.job;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.eclipse.persistence.annotations.ValuePartition;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,7 +29,9 @@ import com.manuelvieda.unacloud.beans.user.UserBeanLocal;
 import com.manuelvieda.unacloud.entities.general.Application;
 import com.manuelvieda.unacloud.entities.general.ApplicationParameter;
 import com.manuelvieda.unacloud.entities.general.Cluster;
+import com.manuelvieda.unacloud.entities.general.Job;
 import com.manuelvieda.unacloud.entities.general.UserInstance;
+import com.manuelvieda.unacloud.repository.dao.StateDao;
 import com.manuelvieda.unacloud.repository.services.ClusterService;
 import com.manuelvieda.unacloud.repository.services.JobService;
 
@@ -139,7 +141,6 @@ public class CreateJobBean {
 		
 		definedApplicationParameters.add(ap);
 		
-		application = 0;
 		applicationParameter = 0;
 		parameterValue = "";
 		
@@ -153,6 +154,13 @@ public class CreateJobBean {
 	 * 
 	 */
 	public void createJob(){
+		
+		String parameters = "";
+		for (com.manuelvieda.unacloud.entities.ApplicationParameter param : definedApplicationParameters) {
+			parameters += param.getValue();
+		}
+		
+		jobService.createJob(name, description, application, clusterService.getCluster(cluster), clusterService.getUserInstance(instance), parameters, userBean.getUsername());
 		
 	}
 	

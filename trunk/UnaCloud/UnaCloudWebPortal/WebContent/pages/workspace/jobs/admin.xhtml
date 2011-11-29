@@ -18,6 +18,76 @@
 		</ul>
 	</ui:define>
 	<ui:define name="body">
+	
+		<div id="pageTitle">
+			Job Administration and Monitoring
+		</div>
+		
+		<div id="divBodyAdminJob">
+		
+			<h:form id="adminJobFormBean">
+			
+				<rich:dataTable value="#{adminJobBean.jobs}" var="job" rows="10"  rowKeyVar="row" id="jobsSumaryTable">
+					<f:facet name="header"><h:outputText value="A brief sumary of your jobs" /></f:facet>
+					
+					<rich:column ><f:facet name="header"><h:outputText value="Name" /></f:facet>
+						<h:outputText value="#{job.name}" id="jobName" />
+					</rich:column>
+					
+					<rich:column ><f:facet name="header"><h:outputText value="Description" /></f:facet>
+						<h:outputText value="#{job.description}" id="jobDescription" />
+					</rich:column>
+					
+					<rich:column ><f:facet name="header"><h:outputText value="Status" /></f:facet>
+						<h:outputText value="#{job.state.description}" id="jobState" />
+					</rich:column>
+					
+					<rich:column ><f:facet name="header"><h:outputText value="View details" /></f:facet>
+						<h:commandLink value="Details" action="#{adminJobBean.selectJob}">
+							<f:param name="idJob" value="#{job.id}" />
+						</h:commandLink>
+					</rich:column>
+					
+				</rich:dataTable>
+			</h:form>
+			
+			
+			<h2>Job Detail...</h2>
+			
+			
+			<h:panelGrid columns="2">
+				<h:outputText value="Name:" />
+				<h:inputText id="jobDetailName" value="#{adminJobBean.selectedJob.name}" size="40" />
+				<h:outputText value="State:" />
+				<h:inputText id="jobDetailState" value="#{adminJobBean.selectedJob.state.description}" size="40" />
+				<h:outputText value="Description:" />
+				<h:inputText id="jobDetailDescription" value="#{adminJobBean.selectedJob.description}" size="40" />
+				<h:outputText value="Application:" />
+				<h:inputText id="jobDetailApp" value="#{adminJobBean.selectedJob.application.name}" size="40" />
+				<h:outputText value="Cluster:" />
+				<h:inputText id="jobDetailCluster" value="#{adminJobBean.selectedJob.cluster.name}" size="40" />
+				<h:outputText value="Instance:" />
+				<h:inputText id="jobDetailInstance" value="#{adminJobBean.selectedJob.userinstance.id} - #{adminJobBean.selectedJob.userinstance.instancetype.name} - #{adminJobBean.selectedJob.userinstance.instancetype.cloudprovider.name}" size="40" />
+				<h:outputText value="Creation time" />
+				<h:inputText id="jobDetailCreationTime" value="#{adminJobBean.selectedJob.creationTime}" size="40" />
+				<h:outputText value="Start Execution Time:" />
+				<h:inputText id="jobDetailProcesedTime" value="#{adminJobBean.selectedJob.procesedTime}" size="40" />
+				<h:outputText value="Finish Time:" />
+				<h:inputText id="jobDetailFinishTime" value="#{adminJobBean.selectedJob.finishTime}" size="40" />
+				<h:outputText value="Job Answer:" />
+				<h:inputText id="jobDetailResult" value="#{adminJobBean.selectedJob.result}" size="40" />
+							
+			</h:panelGrid>
+			<br />
+			<a4j:region>
+			<h:panelGrid columns="3">
+				<a4j:commandButton action="#{adminJobBean.launchJob}" value="Launch Job" render="adminJobFormBean"  />
+				<a4j:commandButton action="#{adminJobBean.stopJob}" value="Stop Job" render="adminJobFormBean"  />
+				<a4j:commandButton action="#{adminJobBean.deleteJob}" value="Delete Job" render="adminJobFormBean"  />
+			</h:panelGrid>
+			</a4j:region>
+		
+		</div>
 	</ui:define>
 </ui:composition>
 </html>
