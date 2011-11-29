@@ -101,4 +101,12 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 		entityTransaction.commit();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.UserInstanceDao#getsUserInstance(int)
+	 */
+	@Override
+	public UserInstance getsUserInstance(int id) {
+		return entityManager.find(UserInstance.class, id);
+	}
+
 }

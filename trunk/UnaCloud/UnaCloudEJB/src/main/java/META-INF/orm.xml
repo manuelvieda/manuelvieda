@@ -22,6 +22,12 @@
 		<query>SELECT c FROM Cluster c WHERE c.user.id = :username</query>
 	</named-query>
 	
+	<!-- JOB -->
+	<named-query name="job.findByUser">
+		<query>SELECT j FROM Job j WHERE  j.user.id = :username</query>
+	</named-query>
+	
+	
 	<!-- INSTANCE TYPE -->
 
 	<named-query name="instanceType.findAllByProvider">

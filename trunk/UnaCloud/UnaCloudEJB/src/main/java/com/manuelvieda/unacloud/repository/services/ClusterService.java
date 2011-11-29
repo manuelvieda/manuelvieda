@@ -152,4 +152,14 @@ public class ClusterService {
 		return userInstanceDao.getUserInstancesByCluster(username, clusterId);
 	}
 
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public UserInstance getUserInstance(int id){
+		return userInstanceDao.getsUserInstance(id);
+	}
+
 }

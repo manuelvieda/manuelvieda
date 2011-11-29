@@ -14,7 +14,6 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.manuelvieda.unacloud.entities.general.Application;
-import com.manuelvieda.unacloud.entities.general.ApplicationParameter;
 
 /**
  * Interface for Entity Bean implementation class JpaApplicationDao

@@ -30,6 +30,8 @@ public class Constants {
 	// CLOUD PROVIDER
 	public static final String NQ_CLOUD_PROVIDER_FIND_ALL = "cloudProvider.findAll";
 	
+	// JOB
+	public static final String NQ_JOB_FIND_BY_USER = "job.findByUser";
 	// INSTANCE TYPE
 	public static final String NQ_INSTANCE_TYPE_GETALLL_BY_PROVIDER = "instanceType.findAllByProvider";
 
@@ -44,6 +46,7 @@ public class Constants {
 	// STATUS
 	public static final int STATE_CLUSTER_ID_STANDBY = 11;
 	public static final int STATE_USER_INSTANCE_ID_STANDBY = 15;
+	public static final int STATE_JOB_CREATED = 19;
 
 
 	 
