@@ -24,6 +24,12 @@ import com.manuelvieda.unacloud.entities.general.UserInstance;
 @Local
 public interface UserInstanceDao {
 	
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public UserInstance getsUserInstance(int id);
 
 	/**
 	 * 

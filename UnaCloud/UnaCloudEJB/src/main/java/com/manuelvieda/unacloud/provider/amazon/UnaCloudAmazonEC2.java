@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+
 import org.apache.commons.collections.CollectionUtils;
 
 import com.manuelvieda.unacloud.entities.general.Cluster;
@@ -26,6 +27,7 @@ import com.manuelvieda.unacloud.entities.general.UserInstance;
 import com.manuelvieda.unacloud.provider.ICloudProvider;
 import com.manuelvieda.unacloud.repository.constants.AWSConstants;
 import com.manuelvieda.unacloud.repository.dao.UserInstanceDao;
+import com.manuelvieda.unacloud.utils.ssh.SSHUtils;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.*;
 import com.amazonaws.services.ec2.AmazonEC2;
@@ -58,6 +60,8 @@ import com.amazonaws.services.ec2.model.StopInstancesResult;
 @Stateless (name="unaCloudAmazonEC2Bean")
 public class UnaCloudAmazonEC2 implements ICloudProvider {
 	
+	@EJB
+	private SSHUtils sshUtils;
 	
 	@EJB
 	private UserInstanceDao userInstanceDao;
@@ -80,6 +84,7 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 		
 		retrieveCredentials();
 		 ec2 = new AmazonEC2Client(credentials);
+		 sshUtils = new SSHUtils();
 	}
 	
 	
@@ -114,6 +119,7 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 				String dnsName = ec2Instance.getPublicDnsName();
 				userInstance.setIdentifier(id);
 				userInstanceDao.updateInstanteMonitoringInfo(userInstance.getId(), id, 16, dnsName);
+				
 			}
 			
 		}
@@ -126,7 +132,7 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			termino = true;
 			// Sleep
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -148,6 +154,31 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 					if(publicDNSName!=null && !publicDNSName.equals("")){
 						userInstanceDao.updateInstanteMonitoringInfo(userInstance.getId(), userInstance.getIdentifier(), 16, publicDNSName);
 						userInstance.setDnsName(publicDNSName);
+						
+						// Install UnaCLoudClient
+						
+						System.out.println(" ---> Realiando conexion con "+publicDNSName);
+						
+						try {
+							for (int i = 0; i < 30; i++) {
+								System.out.println("---->Sleeping");
+								Thread.sleep(2000);
+							}
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						
+						String hostname = publicDNSName;
+						String username = "ec2-user";
+						String privateKeyPath = "C:\\Users\\ManuelVieda\\Desktop\\EC2\\pruebasUnaCloud.pem";
+						
+						String command = "wget https://s3.amazonaws.com/UnaCloudRespository/Applications/java.policy; "+
+								"wget https://s3.amazonaws.com/UnaCloudRespository/Applications/UnaCloudEngineClient.jar; "+
+								"java -jar UnaCloudEngineClient.jar -Djava.security.policy=java.policy";
+						
+						sshUtils = new SSHUtils();
+						sshUtils.createConnectionSSH(hostname, username, privateKeyPath, command);
+						
 					}
 						
 				}
@@ -315,7 +346,8 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			System.out.println("--->>"+url1);
 			System.out.println("--->>"+url1.getFile());
 			credentials = new PropertiesCredentials(new File(url1.getFile()));
-		//credentials = new PropertiesCredentials(AmazonEC2.class.getResourceAsStream(url1.getFile()));
+			
+			//credentials = new PropertiesCredentials(AmazonEC2.class.getResourceAsStream(url1.getFile()));
 			System.out.println("OK");
 			//credentials = new PropertiesCredentials(this.getClass().getResourceAsStream(url1.getFile()));
 			

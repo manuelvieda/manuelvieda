@@ -9,7 +9,11 @@
  */
 package com.manuelvieda.unacloud.repository.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
+
+import com.manuelvieda.unacloud.entities.general.Job;
 
 /**
  * Interface for Entity Bean implementation class JpaJobDao	
@@ -19,5 +23,24 @@ import javax.ejb.Local;
  */
 @Local
 public interface JobDao {
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Job find(int id);
+	
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public List<Job> findByUser(String username);
+
+	/**
+	 * @param job
+	 */
+	public void create(Job job);
 
 }
