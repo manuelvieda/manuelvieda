@@ -2,6 +2,7 @@ package com.manuelvieda.unacloud.entities.general;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
@@ -34,8 +35,20 @@ public class Job implements Serializable {
 
 	@Column(nullable=false)
 	private Timestamp procesedTime;
+	
+	@Column(length=255)
+	private String result;
 
-	private int state;
+	//bi-directional many-to-one association to State
+    @ManyToOne
+	@JoinColumn(name="state", nullable=false)
+	private State state;
+	
+	@Column(length=100)
+	private String name;
+	
+	@Column(length=255)
+	private String description;
 
 	//bi-directional many-to-one association to Application
     @ManyToOne
@@ -108,11 +121,11 @@ public class Job implements Serializable {
 		this.procesedTime = procesedTime;
 	}
 
-	public int getState() {
+	public State getState() {
 		return this.state;
 	}
 
-	public void setState(int state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 
@@ -146,6 +159,48 @@ public class Job implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the result
+	 */
+	public String getResult() {
+		return result;
+	}
+
+	/**
+	 * @param result the result to set
+	 */
+	public void setResult(String result) {
+		this.result = result;
 	}
 	
 }
