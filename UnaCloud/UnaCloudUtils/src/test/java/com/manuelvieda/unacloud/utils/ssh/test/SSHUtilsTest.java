@@ -26,7 +26,6 @@ import net.schmizz.sshj.transport.TransportException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.runners.statements.Fail;
 
 import com.manuelvieda.unacloud.utils.ssh.SSHUtils;
 
@@ -54,7 +53,7 @@ public class SSHUtilsTest {
 		sshUtils = new SSHUtils();
 		
 		hostname = "157.253.236.184";
-		hostname = "ec2-50-16-32-226.compute-1.amazonaws.com";
+		hostname = "ec2-75-101-199-221.compute-1.amazonaws.com";
 		
 		username = "manuelvieda";
 		username = "ec2-user";
@@ -72,7 +71,7 @@ public class SSHUtilsTest {
 	
 	@Test
 	public void testSSHConnectionJsch(){
-		sshUtils.createConnectionSSH(hostname, username, privateKeyPath);
+		sshUtils.createConnectionSSH(hostname, username, privateKeyPath, "wget https://s3.amazonaws.com/UnaCloudRespository/Applications/primeNumbercheck.jar");
 	}
 
 	public void testSSHConnection() {

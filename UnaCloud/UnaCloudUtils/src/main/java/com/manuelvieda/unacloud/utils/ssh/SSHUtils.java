@@ -9,13 +9,14 @@
  */
 package com.manuelvieda.unacloud.utils.ssh;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -64,7 +65,14 @@ public class SSHUtils implements SSHUtilsLocal {
     	
     }
     
-    public void createConnectionSSH(String hostname, String username, String privateKeyPath){
+    /**
+     * 
+     * @param hostname
+     * @param username
+     * @param privateKeyPath
+     * @param command
+     */
+    public void createConnectionSSH(String hostname, String username, String privateKeyPath, String command){
     	
     	try {
     		
@@ -77,18 +85,31 @@ public class SSHUtils implements SSHUtilsLocal {
 			session.setUserInfo(ui);
 			session.connect();
 
-			Channel channel=session.openChannel("shell");
-			channel.setInputStream(System.in);
-			channel.setOutputStream(System.out);
+			
+			Channel channel=session.openChannel("exec");
+		    ((ChannelExec)channel).setCommand(command);
+		    channel.setInputStream(null);
+		    ((ChannelExec)channel).setErrStream(System.err);
+		    
+		    try {
+				InputStream in=channel.getInputStream();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		      
+//			channel.setInputStream(System.in);
+//			channel.setOutputStream(System.out);
 
 			channel.connect();
 			
 			System.out.println("Conexion: "+channel.isConnected());
 			System.out.println("Conexion: "+session.isConnected());
 			
-			while(true){
-				
-			}
+			channel.disconnect();
+			session.disconnect();
+			
 
     	} catch (JSchException e) {
     		// TODO Auto-generated catch block
@@ -96,6 +117,13 @@ public class SSHUtils implements SSHUtilsLocal {
 		}
     }
     
+    /**
+     * 
+     *
+     * @author Manuel Eduardo Vieda Salomon  (mail@manuelvieda.com)
+     * @version
+     * @since
+     */
     public static class MyUserInfo implements UserInfo, UIKeyboardInteractive{
 
 		/* (non-Javadoc)
