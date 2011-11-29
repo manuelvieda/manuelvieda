@@ -19,7 +19,7 @@
 	</ui:define>
 	
 	<ui:define name="body">
-			<div id="pageTitle">
+		<div id="pageTitle">
 			Creating a new JOB...
 		</div>
 		
@@ -48,14 +48,12 @@
 					<rich:select id="clusterSelector" defaultLabel="Select one" value="#{createJobBean.cluster}">
 						<f:selectItems value="#{createJobBean.clusterLst}"/>
 						<a4j:ajax event="change"  render="clusterInstanceSelector"/>
-						<rich:validator summary="Invalid value" />
 					</rich:select>
 					<rich:message for="clusterSelector" />
 					
 					<h:outputText value="Instance" />
 					<rich:select id="clusterInstanceSelector" defaultLabel="Select one" value="#{createJobBean.instance}">
 						<f:selectItems value="#{createJobBean.instanceLst}"/>
-						<rich:validator summary="Invalid value" />
 					</rich:select>
 					<rich:message for="clusterInstanceSelector" />
 					
