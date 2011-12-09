@@ -57,7 +57,7 @@ public class UnaCloudClientConnection extends Thread{
 				System.out.println("--> RECIBIDO: "+inputLine);
 				
 				if(inputLine.startsWith("JOB")){
-					System.out.println("--> llego respuesta de trabajo "+inputLine);
+					System.out.println("--> llego respuesta de trabajo "+inputLine+"  //  "+inputLine.split("-").length);
 					String[] jobResult = inputLine.split("-");
 					if(jobResult.length==3)
 						jobService.updateJobResult(Integer.parseInt(jobResult[1]), jobResult[2]);

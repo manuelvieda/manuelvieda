@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityTransaction;
 
 import com.manuelvieda.unacloud.entities.general.Job;
 import com.manuelvieda.unacloud.entities.general.State;
@@ -34,9 +33,9 @@ public class JpaJobDao extends JpaGeneric implements JobDao {
 	 */
 	@Override
 	public Job find(int id) {
-		return (Job) entityManager.createNamedQuery("job.findById").setParameter("id", id).getSingleResult();
-				
-				//entityManager.find(Job.class, id);
+		//return (Job) entityManager.createNamedQuery("job.findById").setParameter("id", id).getSingleResult();
+		entityManager.flush();
+		return entityManager.find(Job.class, id);
 	}
 
 	/* (non-Javadoc)
@@ -55,11 +54,16 @@ public class JpaJobDao extends JpaGeneric implements JobDao {
 	 */
 	@Override
 	public void create(Job job) {
+		System.out.println("Creando trabajo");
 		
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		//EntityTransaction entityTransaction = entityManager.getTransaction();
+		//entityTransaction.begin();
+		entityManager.flush();
 		entityManager.persist(job);
-		entityTransaction.commit();
+		entityManager.merge(job);
+		entityManager.flush();
+		//entityTransaction.commit();
+		System.out.println("Trabajo creado");
 		
 	}
 
@@ -69,16 +73,28 @@ public class JpaJobDao extends JpaGeneric implements JobDao {
 	@Override
 	public void updateResult(int id, String result, State state) {
 		
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		entityManager.createNamedQuery(Constants.NQ_JOB_UPDATE_RESULT)
+		System.out.println("---> Almacenando resultado de trabajo! "+id+"  con resultado "+result+" y estado "+state.getDescription());
+		//EntityTransaction entityTransaction = entityManager.getTransaction();
+		//entityTransaction.begin();
+		entityManager.joinTransaction();
+		entityManager.flush();
+		
+		int resultado = entityManager.createNamedQuery(Constants.NQ_JOB_UPDATE_RESULT)
 			.setParameter("idJob", id)
 			.setParameter("state", state)
 			.setParameter("finishTime", new Timestamp(System.currentTimeMillis()))
 			.setParameter("result", result)
 			.executeUpdate();
-		entityTransaction.commit();
-		entityTransaction.commit();
+		//ent
+		System.out.println("---> Finalizao actualizacion con resultado "+resultado);
+		//entityTransaction.commit();
+		Job job = entityManager.find(Job.class, id);
+		job.setState(state);
+		job.setResult(result);
+		job.setFinishTime(new Timestamp(System.currentTimeMillis()));
+		entityManager.merge(job);
+		entityManager.flush();
+		System.out.println("---> Finalizo Transaccion");
 	}
 
 	/* (non-Javadoc)
@@ -86,7 +102,10 @@ public class JpaJobDao extends JpaGeneric implements JobDao {
 	 */
 	@Override
 	public void updateSend(int id, State state) {
-		// TODO Auto-generated method stub
+		Job job = find(id);
+		job.setState(state);
+		entityManager.persist(job);
+		entityManager.flush();
 		
 	}
 

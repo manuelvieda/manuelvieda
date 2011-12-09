@@ -58,6 +58,7 @@ public class AdminJobBean extends GenericBackingBean{
 		System.out.println("Seleccionado JOB con id: "+idJob);
 		selectedJob = jobService.getJob(idJob);
 		System.out.println("Resultado Job: "+selectedJob.getResult());
+		setMessage("Seleccionado el trabajo correctamente");
 	}
 	
 	/**
@@ -67,7 +68,9 @@ public class AdminJobBean extends GenericBackingBean{
 		
 		if(selectedJob!=null){
 			jobService.launchJob(selectedJob);
-			
+			setMessage("Job Launched!");
+		}else{
+			setMessage("ERROR: You must select a Job first!!");
 		}
 		
 	}
@@ -76,14 +79,14 @@ public class AdminJobBean extends GenericBackingBean{
 	 * 
 	 */
 	public void stopJob(){
-		
+		setMessage("Function still not implemented!");
 	}
 	
 	/**
 	 * 
 	 */
 	public void deleteJob(){
-		
+		setMessage("Function still not implemented!");
 	}
 	
 	

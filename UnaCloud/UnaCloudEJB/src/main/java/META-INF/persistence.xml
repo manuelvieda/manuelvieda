@@ -21,8 +21,8 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit -->
-	<persistence-unit name="UnaCloudEntities" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/UnaCloudDS</non-jta-data-source>
+	<persistence-unit name="UnaCloudEntities" transaction-type="JTA">
+		<jta-data-source>jdbc/UnaCloudDS</jta-data-source>
 		<mapping-file>META-INF/orm.xml</mapping-file>
 		<class>com.manuelvieda.unacloud.entities.general.ApplicationParameter</class>
 		<class>com.manuelvieda.unacloud.entities.general.Application</class>

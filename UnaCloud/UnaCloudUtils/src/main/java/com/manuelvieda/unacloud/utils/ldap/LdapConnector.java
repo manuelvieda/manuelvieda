@@ -13,8 +13,6 @@ import com.unboundid.ldap.sdk.LDAPException;
  * Session Bean implementation class LdapConnector
  */
 @Singleton(name = "ldapConnectorBean")
-@Startup
-@LocalBean
 public class LdapConnector {
 	
 	private final static String LDAP_HOST = "127.0.0.1";

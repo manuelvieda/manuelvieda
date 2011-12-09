@@ -86,6 +86,7 @@ public class ClusterService {
 					cluster.setDescription(description);
 					cluster.setState(stateCluster);
 					clusterDao.createCluster(cluster);
+					cluster = clusterDao.find(cluster.getId());
 					
 					// Asign instances to the cluster
 					State stateInstance = stateDao.find(Constants.STATE_USER_INSTANCE_ID_STANDBY);
