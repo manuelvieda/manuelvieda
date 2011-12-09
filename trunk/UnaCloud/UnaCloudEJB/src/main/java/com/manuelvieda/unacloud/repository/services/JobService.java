@@ -27,6 +27,7 @@ import com.manuelvieda.unacloud.repository.dao.JobDao;
 import com.manuelvieda.unacloud.repository.dao.StateDao;
 import com.manuelvieda.unacloud.repository.dao.UserDao;
 import com.manuelvieda.unacloud.repository.constants.Constants;
+import com.manuelvieda.unacoud.client.SocketConnectionServer;
 
 /**
  * Session Bean implementation class JobService
@@ -52,6 +53,9 @@ public class JobService {
 	
 	@EJB
 	private UserDao userDao;
+	
+	@EJB
+	private SocketConnectionServer socketConnection;
 	
 	/**
 	 * 
@@ -81,6 +85,15 @@ public class JobService {
 		jobDao.create(job);
 		
 		
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param result
+	 */
+	public void updateJobResult(int id, String result){
+		jobDao.updateResult(id, result, stateDao.find(23));
 	}
 	
 	
@@ -135,6 +148,26 @@ public class JobService {
 	 */
 	public List<Job> getUserJobs(String username){
 		return jobDao.findByUser(username);
+	}
+	
+	
+	/**
+	 * 
+	 * @param jobId
+	 */
+	public void launchJob(Job job){
+		
+		System.out.println("---> Lanzando trabajo");
+		
+		String hostname = job.getUserinstance().getDnsName();
+		//hostname = "manuelvieda.homedns.org";
+		
+		if(job.getUserinstance().getState().getId()==Constants.STATE_USER_INSTANCE_ID_RUNNING){
+			//System.out.println("Checak machine: "+socketConnection.checkMachine(hostname, 10010));
+			System.out.println("---> Enviando trabajo a maquina "+hostname+":10010");
+			socketConnection.sendJob(hostname, 10010, "https://s3.amazonaws.com/UnaCloudRespository/Applications/primeNumbercheck.jar", ""+job.getId(), job.getParameters());
+		}
+		
 	}
 
 }

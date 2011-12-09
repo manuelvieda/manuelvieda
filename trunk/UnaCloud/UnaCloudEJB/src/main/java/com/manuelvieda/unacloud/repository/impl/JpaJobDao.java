@@ -9,12 +9,14 @@
  */
 package com.manuelvieda.unacloud.repository.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityTransaction;
 
 import com.manuelvieda.unacloud.entities.general.Job;
+import com.manuelvieda.unacloud.entities.general.State;
 import com.manuelvieda.unacloud.repository.dao.JobDao;
 import com.manuelvieda.unacloud.repository.constants.Constants;
 
@@ -32,7 +34,9 @@ public class JpaJobDao extends JpaGeneric implements JobDao {
 	 */
 	@Override
 	public Job find(int id) {
-		return entityManager.find(Job.class, id);
+		return (Job) entityManager.createNamedQuery("job.findById").setParameter("id", id).getSingleResult();
+				
+				//entityManager.find(Job.class, id);
 	}
 
 	/* (non-Javadoc)
@@ -56,6 +60,33 @@ public class JpaJobDao extends JpaGeneric implements JobDao {
 		entityTransaction.begin();
 		entityManager.persist(job);
 		entityTransaction.commit();
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.JobDao#updateResult(int, java.lang.String)
+	 */
+	@Override
+	public void updateResult(int id, String result, State state) {
+		
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		entityManager.createNamedQuery(Constants.NQ_JOB_UPDATE_RESULT)
+			.setParameter("idJob", id)
+			.setParameter("state", state)
+			.setParameter("finishTime", new Timestamp(System.currentTimeMillis()))
+			.setParameter("result", result)
+			.executeUpdate();
+		entityTransaction.commit();
+		entityTransaction.commit();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.manuelvieda.unacloud.repository.dao.JobDao#updateSend(int, com.manuelvieda.unacloud.entities.general.State)
+	 */
+	@Override
+	public void updateSend(int id, State state) {
+		// TODO Auto-generated method stub
 		
 	}
 

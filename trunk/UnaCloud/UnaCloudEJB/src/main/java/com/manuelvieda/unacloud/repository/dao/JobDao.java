@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.manuelvieda.unacloud.entities.general.Job;
+import com.manuelvieda.unacloud.entities.general.State;
 
 /**
  * Interface for Entity Bean implementation class JpaJobDao	
@@ -42,5 +43,20 @@ public interface JobDao {
 	 * @param job
 	 */
 	public void create(Job job);
+	
+	
+	/**
+	 * 
+	 * @param id
+	 * @param result
+	 */
+	public void updateResult(int id, String result, State state);
+	
+	/**
+	 * 
+	 * @param id
+	 * @param state
+	 */
+	public void updateSend(int id, State state);
 
 }

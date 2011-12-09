@@ -132,6 +132,7 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			termino = true;
 			// Sleep
 			try {
+				System.out.println("--> First Sleep");
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -154,31 +155,6 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 					if(publicDNSName!=null && !publicDNSName.equals("")){
 						userInstanceDao.updateInstanteMonitoringInfo(userInstance.getId(), userInstance.getIdentifier(), 16, publicDNSName);
 						userInstance.setDnsName(publicDNSName);
-						
-						// Install UnaCLoudClient
-						
-						System.out.println(" ---> Realiando conexion con "+publicDNSName);
-						
-						try {
-							for (int i = 0; i < 30; i++) {
-								System.out.println("---->Sleeping");
-								Thread.sleep(2000);
-							}
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						
-						String hostname = publicDNSName;
-						String username = "ec2-user";
-						String privateKeyPath = "C:\\Users\\ManuelVieda\\Desktop\\EC2\\pruebasUnaCloud.pem";
-						
-						String command = "wget https://s3.amazonaws.com/UnaCloudRespository/Applications/java.policy; "+
-								"wget https://s3.amazonaws.com/UnaCloudRespository/Applications/UnaCloudEngineClient.jar; "+
-								"java -jar UnaCloudEngineClient.jar -Djava.security.policy=java.policy";
-						
-						sshUtils = new SSHUtils();
-						sshUtils.createConnectionSSH(hostname, username, privateKeyPath, command);
-						
 					}
 						
 				}
@@ -187,7 +163,37 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 			}
 			
 		}
-		System.out.println("Termino de crear Cluster en AMAZON EC2");
+		System.out.println("Termino de crear Cluster en AMAZON EC2... Instalando Aplicaciones");
+		
+		
+		System.out.println("Waiting 60 seconds");
+		try {
+			for (int i = 0; i < 60; i++) {
+				System.out.println("---->Remaining "+(60-i));
+				Thread.sleep(1000);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		// Obtiene la informacion del estado de las instancias lanzadas
+		for (UserInstance userInstance : userInstances) {
+		
+			String publicDNSName = userInstance.getDnsName();
+			
+			// Install UnaCLoudClient
+			System.out.println(" ---> Realiando conexion con "+publicDNSName);
+			
+			String hostname = publicDNSName;
+			String username = "ec2-user";
+			String privateKeyPath = "C:\\Users\\ManuelVieda\\Desktop\\EC2\\pruebasUnaCloud.pem";
+			
+			String command = "wget https://s3.amazonaws.com/UnaCloudRespository/Applications/UnaCloudEngineClient.jar; java -jar UnaCloudEngineClient.jar";
+			
+			sshUtils = new SSHUtils();
+			sshUtils.createConnectionSSH(hostname, username, privateKeyPath, command);
+		}
+		
 
 		
 		
