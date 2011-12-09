@@ -1,17 +1,16 @@
 package com.manuelvieda.unacloud.entities.general;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2011-11-29T12:10:36.737-0500")
+@Generated(value="Dali", date="2011-11-30T09:01:29.761-0500")
 @StaticMetamodel(Job.class)
 public class Job_ {
 	public static volatile SingularAttribute<Job, Integer> id;
 	public static volatile SingularAttribute<Job, Timestamp> creationTime;
-	public static volatile SingularAttribute<Job, BigInteger> finishTime;
+	public static volatile SingularAttribute<Job, Timestamp> finishTime;
 	public static volatile SingularAttribute<Job, String> parameters;
 	public static volatile SingularAttribute<Job, String> params;
 	public static volatile SingularAttribute<Job, Timestamp> procesedTime;
