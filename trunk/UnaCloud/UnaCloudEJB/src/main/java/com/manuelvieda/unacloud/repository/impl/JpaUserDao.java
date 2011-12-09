@@ -42,6 +42,7 @@ public class JpaUserDao extends JpaGeneric implements UserDao{
 	 */
 	@Override
 	public User find(String username) {
+		entityManager.flush();
 		return entityManager.find(User.class, username);
 	}
 	
@@ -53,8 +54,8 @@ public class JpaUserDao extends JpaGeneric implements UserDao{
 	@Override
 	public void createUser(User user){
 		
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		//EntityTransaction entityTransaction = entityManager.getTransaction();
+		//entityTransaction.begin();
 		
 		Role role = entityManager.find(Role.class, 1);
 		user.setRole(role);
@@ -62,7 +63,9 @@ public class JpaUserDao extends JpaGeneric implements UserDao{
 		State state = entityManager.find(State.class, 1);
 		user.setState(state);
 		entityManager.persist(user);
-		entityTransaction.commit();
+		entityManager.merge(user);
+		entityManager.flush();
+		//entityTransaction.commit();
 	}
 
 }

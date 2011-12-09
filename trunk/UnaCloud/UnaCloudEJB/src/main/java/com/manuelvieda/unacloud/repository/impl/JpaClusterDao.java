@@ -12,7 +12,6 @@ package com.manuelvieda.unacloud.repository.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityTransaction;
 
 import com.manuelvieda.unacloud.entities.general.Cluster;
 import com.manuelvieda.unacloud.entities.general.State;
@@ -34,6 +33,7 @@ public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 	 */
 	@Override
 	public Cluster find(int idCluster) {
+		entityManager.flush();
 		return entityManager.find(Cluster.class, idCluster);
 	}
 	
@@ -45,6 +45,7 @@ public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 	@Override
 	public void createCluster(User user, String name, String description, State state) {
 		
+		entityManager.joinTransaction();
 		if(user!=null && state!=null){
 			Cluster cluster = new Cluster();
 			cluster.setName(name);
@@ -53,6 +54,7 @@ public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 			cluster.setState(state);
 			createCluster(cluster);
 		}
+		entityManager.flush();
 	}
 
 	/*
@@ -61,10 +63,12 @@ public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 	 */
 	@Override
 	public void createCluster(Cluster cluster) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		//EntityTransaction entityTransaction = entityManager.getTransaction();
+		//entityTransaction.begin();
 		entityManager.persist(cluster);
-		entityTransaction.commit();
+		entityManager.merge(cluster);
+		entityManager.flush();
+		//entityTransaction.commit();
 	}
 
 	
@@ -75,6 +79,7 @@ public class JpaClusterDao extends JpaGeneric implements ClusterDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cluster> findByUser(String username) {
+		entityManager.flush();
 		return entityManager.createNamedQuery(Constants.NQ_CLUSTER_FIND_BY_USER)
 					.setParameter("username", username)
 					.getResultList();

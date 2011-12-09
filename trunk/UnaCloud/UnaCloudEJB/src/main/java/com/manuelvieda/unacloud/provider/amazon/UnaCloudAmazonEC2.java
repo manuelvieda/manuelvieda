@@ -106,7 +106,22 @@ public class UnaCloudAmazonEC2 implements ICloudProvider {
 		
 		List<UserInstance> userInstances = cluster.getUserinstances();
 		for (UserInstance userInstance : userInstances) {
-			String instanceType = "t1.micro";
+			
+			String instanceType = "";
+			switch(userInstance.getInstancetype().getId()){
+			case 1:
+				instanceType = "t1.micro";
+				break;
+			case 2:
+				instanceType = "m1.large";
+				break;
+			case 3:
+				instanceType = "m1.xlarge";
+				break;
+			default:
+				instanceType = "t1.micro";
+			}
+			instanceType = "t1.micro";
 			int quantity = 1;
 			
 			RunInstancesResult result = requestInstance(availabilityZone, groupName, imageId, instanceType, quantity, monitoring, keyName);

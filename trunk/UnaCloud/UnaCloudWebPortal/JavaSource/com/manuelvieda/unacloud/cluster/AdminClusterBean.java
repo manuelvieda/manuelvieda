@@ -67,8 +67,10 @@ public class AdminClusterBean extends GenericBackingBean{
 	public String turnOn(){
 		
 		if(selectedCluster!=null){
+			setMessage("Turning ON the cluster... please be patient!!  (65 - 85 seconds)");
 			com.manuelvieda.unacloud.entities.general.Cluster cluster = clusterService.getCluster(selectedCluster.getIdCluster());
 			amazonEC2.turnOnCluster(cluster);
+			setMessage("Turning on Cluster!");
 		}
 		
 		return "";
@@ -77,6 +79,7 @@ public class AdminClusterBean extends GenericBackingBean{
 	public String turnOff(){
 		com.manuelvieda.unacloud.entities.general.Cluster cluster = clusterService.getCluster(selectedCluster.getIdCluster());
 		amazonEC2.turnOffCluster(cluster);
+		setMessage("Turning Off cluster");
 		return "";
 	}
 	

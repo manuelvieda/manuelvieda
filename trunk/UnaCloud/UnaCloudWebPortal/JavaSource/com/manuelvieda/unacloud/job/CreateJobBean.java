@@ -31,6 +31,7 @@ import com.manuelvieda.unacloud.entities.general.ApplicationParameter;
 import com.manuelvieda.unacloud.entities.general.Cluster;
 import com.manuelvieda.unacloud.entities.general.Job;
 import com.manuelvieda.unacloud.entities.general.UserInstance;
+import com.manuelvieda.unacloud.generic.GenericBackingBean;
 import com.manuelvieda.unacloud.repository.dao.StateDao;
 import com.manuelvieda.unacloud.repository.services.ClusterService;
 import com.manuelvieda.unacloud.repository.services.JobService;
@@ -43,7 +44,7 @@ import com.manuelvieda.unacloud.repository.services.JobService;
  */
 @ManagedBean (name="createJobBean")
 @ViewScoped
-public class CreateJobBean {
+public class CreateJobBean extends GenericBackingBean {
 	
 	/**
 	 * Reference to the EJB that contains and controlls the user information
@@ -161,6 +162,7 @@ public class CreateJobBean {
 		}
 		
 		jobService.createJob(name, description, application, clusterService.getCluster(cluster), clusterService.getUserInstance(instance), parameters, userBean.getUsername());
+		setMessage("Job Created... Go to job administration!");
 		
 	}
 	

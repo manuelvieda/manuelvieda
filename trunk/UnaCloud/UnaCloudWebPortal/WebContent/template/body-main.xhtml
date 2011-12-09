@@ -10,6 +10,16 @@
 	<div id="body-container">
 	<ui:include src="/template/menu-main.xhtml"/>
 	<div id="body">
+	
+		<a4j:outputPanel id="msgGlobal" ajaxRendered="true">
+			<rich:messages errorClass="sgid_error" warnClass="unacloud_warn" infoClass="unacloud_info" fatalClass="unacloud_fatal">
+				<f:facet name="errorMarker"></f:facet>
+			    <f:facet name="fatalMarker"></f:facet>
+			    <f:facet name="infoMarker"></f:facet>
+			    <f:facet name="warnMarker"></f:facet>
+			</rich:messages>
+		</a4j:outputPanel>
+		
 		<ui:insert name="body"><h1>Whoops!!</h1><p>It looks that you reach a page that is under construction!</p></ui:insert>
 	</div>
 	</div>

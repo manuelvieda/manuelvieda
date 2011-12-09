@@ -11,6 +11,7 @@ package com.manuelvieda.unacloud.generic;
 
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /**
@@ -20,6 +21,18 @@ import javax.faces.context.FacesContext;
  * @since	1.0
  */
 public class GenericBackingBean {
+	
+	public void setMessage(String msg){
+		FacesContext context = getFacesContext();
+		FacesMessage message = new FacesMessage();
+		
+		message.setSeverity(FacesMessage.SEVERITY_ERROR);
+		message.setSummary(msg);
+		
+		context.addMessage(null, message);
+		
+	}
+	
 
 	/**
 	 * Obtains the {@link FacesContext}

@@ -35,16 +35,20 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 	 */
 	@Override
 	public void createUserInstance(UserInstance userInstance) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		//EntityTransaction entityTransaction = entityManager.getTransaction();
+		//entityTransaction.begin();
+		//entityManager.joinTransaction();
+		//entityManager.flush();
 		System.out.println(userInstance.getId());
 		System.out.println(userInstance.getInstancetype().getId());
 		System.out.println(userInstance.getInstancetype().getName());
 		System.out.println(userInstance.getState().getId());
 		System.out.println(userInstance.getState().getDescription());
 		entityManager.persist(userInstance);
+		//entityManager.merge(userInstance);
 		System.out.println("persistido UI");
-		entityTransaction.commit();
+		//entityTransaction.commit();
+		//entityManager.flush();
 		
 	}
 
@@ -55,6 +59,7 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserInstance> getUserInstances(String username) {
+		entityManager.flush();
 		return entityManager.createNamedQuery(Constants.NQ_USER_INSTANCES_FIND_BY_USER)
 				.setParameter("username", username)
 				.getResultList();
@@ -66,6 +71,7 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserInstance> getUserInstancesByCluster(String username, int clusterId) {
+		entityManager.flush();
 		return entityManager.createNamedQuery(Constants.NQ_USER_INSTANCES_FIND_BY_USER_CLUSTER)
 				.setParameter("username", username)
 				.setParameter("clusterId", clusterId)
@@ -81,8 +87,10 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 	@Override
 	public void updateInstanteMonitoringInfo(int id, String idProvider, int status, String publicDns){
 		
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		entityManager.joinTransaction();
+		entityManager.flush();
+		//EntityTransaction entityTransaction = entityManager.getTransaction();
+		//entityTransaction.begin();
 		
 		UserInstance instance = entityManager.find(UserInstance.class, id);
 		
@@ -97,8 +105,9 @@ public class JpaUserInstanceDao extends JpaGeneric implements UserInstanceDao {
 			instance.setDnsName(publicDns);
 		
 		entityManager.merge(instance);
+		entityManager.flush();
 		
-		entityTransaction.commit();
+		//entityTransaction.commit();
 	}
 
 	/* (non-Javadoc)

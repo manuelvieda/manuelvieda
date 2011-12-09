@@ -28,6 +28,7 @@ import com.manuelvieda.unacloud.beans.user.UserBeanLocal;
 import com.manuelvieda.unacloud.entities.Instance;
 import com.manuelvieda.unacloud.entities.general.CloudProvider;
 import com.manuelvieda.unacloud.entities.general.InstanceType;
+import com.manuelvieda.unacloud.generic.GenericBackingBean;
 import com.manuelvieda.unacloud.repository.constants.Constants;
 import com.manuelvieda.unacloud.repository.services.CloudProviderService;
 import com.manuelvieda.unacloud.repository.services.ClusterService;
@@ -41,7 +42,7 @@ import com.manuelvieda.unacloud.repository.services.ClusterService;
 */
 @ManagedBean (name="createClusterBean")
 @ViewScoped
-public class CreateClusterBean {
+public class CreateClusterBean extends GenericBackingBean{
 	
 	@EJB
 	private CloudProviderService cloudProviderService;
@@ -262,7 +263,7 @@ public class CreateClusterBean {
 	 * Creates the Cluster of the user on the dataBase
 	 */
 	public void create(){
-		
+		setMessage("Creating cluster... please wait!");
 		System.out.println("--->> Creando cluster");
 		if(CollectionUtils.isNotEmpty(instances)){
 			
@@ -279,7 +280,9 @@ public class CreateClusterBean {
 			clusterService.createCluster(userBean.getUsername(), name, description, Constants.STATE_CLUSTER_ID_STANDBY, instancesMap);
 			
 			System.out.println("--->> Creado cluster en base de dato");
-		}
+			setMessage("Clsuter created! Go to cluster administration!");
+		}else
+			setMessage("You must enter a least one instance");
 	}
 
 

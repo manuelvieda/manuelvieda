@@ -3,6 +3,7 @@
 	<name>UnaCloud</name>
 	<comment></comment>
 	<projects>
+		<project>UnaCloudClient</project>
 		<project>UnaCloudEJB</project>
 		<project>UnaCloudEntities</project>
 		<project>UnaCloudUtils</project>

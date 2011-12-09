@@ -25,7 +25,7 @@
 			
 				<a4j:region>
 				<h2>Your clusters... </h2>
-				<rich:dataTable value="#{adminClusterBean.userClustersLst}" var="clusterInfo" rows="10"  rowKeyVar="row" id="clusterSumaryTable">
+				<rich:dataTable value="#{adminClusterBean.userClustersLst}" var="clusterInfo" rows="60"  rowKeyVar="row" id="clusterSumaryTable">
 					<f:facet name="header"><h:outputText value="A brief sumary of your clusters" /></f:facet>
 					<rich:column ><f:facet name="header"><h:outputText value="Name" /></f:facet>
 						<h:outputText value="#{clusterInfo.name}" id="clusterName" />
