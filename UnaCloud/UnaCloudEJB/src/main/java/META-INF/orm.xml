@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+<entity-mappings version="2.0" 
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
 
 	<!-- APPLICATIONS -->
 	<named-query name="application.findAll">
@@ -23,13 +26,20 @@
 	</named-query>
 	
 	<!-- JOB -->
+	
+	<named-query name="job.findById">
+		<query>SELECT j FROM Job j WHERE  j.id = :id</query>
+	</named-query>
+	
 	<named-query name="job.findByUser">
 		<query>SELECT j FROM Job j WHERE  j.user.id = :username</query>
 	</named-query>
 	
+	<named-query name="job.updateResult">
+		<query>UPDATE Job j SET j.result = :result, j.state = :state, j.finishTime = :finishTime WHERE j.id = :idJob</query>
+	</named-query>
 	
 	<!-- INSTANCE TYPE -->
-
 	<named-query name="instanceType.findAllByProvider">
 		<query>SELECT it FROM InstanceType it WHERE it.cloudprovider.id = :idProvider</query>
 	</named-query>
