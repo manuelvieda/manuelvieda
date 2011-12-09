@@ -55,16 +55,18 @@ public class AdminJobBean extends GenericBackingBean{
 	 */
 	public void selectJob(){
 		int idJob = Integer.parseInt(getRequestParam().get("idJob"));
+		System.out.println("Seleccionado JOB con id: "+idJob);
 		selectedJob = jobService.getJob(idJob);
+		System.out.println("Resultado Job: "+selectedJob.getResult());
 	}
 	
 	/**
 	 * 
 	 */
-	public void lauchJob(){
+	public void launchJob(){
 		
 		if(selectedJob!=null){
-			
+			jobService.launchJob(selectedJob);
 			
 		}
 		
