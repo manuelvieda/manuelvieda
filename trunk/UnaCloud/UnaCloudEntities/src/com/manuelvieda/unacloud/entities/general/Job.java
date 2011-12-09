@@ -3,7 +3,6 @@ package com.manuelvieda.unacloud.entities.general;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 
@@ -25,7 +24,7 @@ public class Job implements Serializable {
 	@Column(nullable=false)
 	private Timestamp creationTime;
 
-	private BigInteger finishTime;
+	private Timestamp finishTime;
 
 	@Column(nullable=false, length=255)
 	private String parameters;
@@ -89,11 +88,11 @@ public class Job implements Serializable {
 		this.creationTime = creationTime;
 	}
 
-	public BigInteger getFinishTime() {
+	public Timestamp getFinishTime() {
 		return this.finishTime;
 	}
 
-	public void setFinishTime(BigInteger finishTime) {
+	public void setFinishTime(Timestamp finishTime) {
 		this.finishTime = finishTime;
 	}
 
